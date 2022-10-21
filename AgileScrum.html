@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management</title>
+    <style>
+        .estimated,.worked,.remaining {
+            text-align:center;
+        }
+        .milestone {
+            font-family:Arial, Helvetica, sans-serif;
+        }
+        .milestone td {
+            line-height:1.5;
+        }
+        .milestone th, td {
+            border:1px solid black;
+            font-size: 115%;
+            padding: 10px 25px 10px 20px;
+        }
+        .taskbox {
+            padding-top:1%;
+        }
+        .tasks {
+            margin:0;
+        }
+    </style>
+</head>
+<body>
+    <h1 align="center">Project Management Spreadsheet</h1><hr><br>
+
+    <h2 align="center">Milestone 2</h2>
+    <table class="milestone">
+        <thead>
+            <tr>
+                <th style="width:70%;">User Story</th>
+                <th>Team Member</th>
+                <th>Estimated Hours</thclass=>
+                <th>Hours Worked</th>
+                <th>Remaining</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <span style="font-size:105%;">
+                        Develop a Registration module that will require clients to register a <i>User</i> account before getting access to the web app's main content.<br>
+                        Registration details, at minimum, should include First Name, Last Name, Email Address, Phone Number, and Login Credentials (Username and Password). The Registration page should leverage Spring MVC for all dynamic page generation.<br>
+                        A user object model should be designed and implemented.<br>
+                        A database model should be designed, but an implementation is not required until Milestone Assignment 4.<br>
+                        All data entered by the user must be validated and provide proper error messages enabling the user to easily correct the data.
+                    </span>
+                    <div class="taskbox">
+                        <u>Tasks</u>
+                        <ul class="tasks">
+                            <li><i>unassigned</i></li>
+                        </ul>
+                    </div>
+                </td>
+                <td>Shazeb Suhail</td>
+                <td class="estimated">25</td>
+                <td class="worked">0</td>
+                <td class="remaining">25</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span style="font-size:105%;">
+                        Develop the Main Application module which displays our web page layouts. This will be the main application page that is visible when the root URI of the application is accessed.<br>
+                        The main application should provide initial navigation concepts, such as a menu bar, to access the application's core functionality such as Login and Register.<br>
+                        The main application, at this point, should have well-defined styles, fonts, colors, and an overall application theme implemented that will be used for the remaining milestone deliverables.<br>
+                        The application should leverage Spring MVC for all dynamic page generation.<br>
+                        The application should have a title (and possible a logo).<br>
+                        Responsive design, configure the application to use the Bootstrap Framework. Ensure application can be rendered properly on at least one mobile device, one tablet, and two desktop browsers.<br>
+                        All pages must be design using one or more common Thymeleaf layouts.
+                    </span>
+                    <div class="taskbox">
+                        <u>Tasks</u>
+                        <ul class="tasks">
+                            <li><i>unassigned</i></li>
+                        </ul>
+                    </div>
+                </td>
+                <td>Justice Gooch</td>
+                <td class="estimated">?</td>
+                <td class="worked">0</td>
+                <td class="remaining">?</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span style="font-size:105%;">
+                        Develop a Login module that will emulate authenticating the user (i.e. no database).<br>
+                        The log page should leverage Spring MVC for all dynamic page generation.<br>
+                        A login/principle object model should be designed and implemented.<br>
+                        A database model should be designed, but an implementation is not required until Milestone Assignment 4.<br>
+                        All data entered by the user must be validated and provide proper error messages enabling the user to easily correct the data.<br>
+                        Security will be implemented as part of Milestone 6 using the Spring Security framework. For now, it is not required to securely protect any pages in the application.<br>
+                        Once the user is logged in the main “product” page should be displayed and the menu system be dynamically updated to reflect the logged in state of the application.
+                    </span>
+                    <div class="taskbox">
+                        <u>Tasks</u>
+                        <ul class="tasks">
+                            <li><i>unassigned</i></li>
+                        </ul>
+                    </div>
+                </td>
+                <td>Jamie Lewis</td>
+                <td class="estimated">?</td>
+                <td class="worked">0</td>
+                <td class="remaining">?</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <span style="font-size:105%;">
+                        Update Design Report. Include Sitemap, User Interface diagrams, Entity Relationship diagram, UML diagram, known issues, risks, key technical decisions, general technical approach, install or configuration instructions, DDL scripts, and screencast.
+                    </span>
+                    <div class="taskbox">
+                        <u>Tasks</u>
+                        <ul class="tasks">
+                            <li><i>unassigned</i></li>
+                        </ul>
+                    </div>
+                </td>
+                <td>Eli Perez</td>
+                <td class="estimated">?</td>
+                <td class="worked">0</td>
+                <td class="remaining">?</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+
+    <footer style="height:50px;"></footer>
+</body>
+</html>
+
+<!--- User story row template (copy & paste) 
+
+
+<tr>
+    <td>
+        <span style="font-size:105%;">
+            ...
+        </span>
+        <div class="taskbox">
+            <u>Tasks</u>
+            <ul class="tasks">
+                <li><i>unassigned</i></li>
+            </ul>
+        </div>
+    </td>
+    <td>?</td>
+    <td class="estimated">?</td>
+    <td class="worked">0</td>
+    <td class="remaining">?</td>
+</tr>
+
+
+-->

@@ -14,7 +14,7 @@
 	<name>CST339-CLCMilestoneProject</name>
 	<description>CLC Milestone Project for CST-339 - Social Media Web App</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
