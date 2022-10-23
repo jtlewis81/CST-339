@@ -42,16 +42,9 @@ public class LoginController
     public String doLogin(@Valid LoginModel loginModel, BindingResult bindingResult, Model model)
     {
 
-        // if input errors, remain on login page and display error messages
-        if(bindingResult.hasErrors()
-    		|| loginModel.getUsername().equals("")
-    		|| loginModel.getPassword().equals(""))
-        {
-            // model.addAttribute("title", "Login Form");
-            return ";
-        }
+    	// using bootstrap validation for blank fields
         
-        // if no errors, check for valid user
+        // check for valid user
     	for(int i = 0; i < Cst339ClcMilestoneProjectApplication.Users.size(); i++)
     	{
     		// temp user data
@@ -60,18 +53,16 @@ public class LoginController
     		// if the username and password match that of an existing user,
     		// continue to user's profile page (user_account)
     		if (user.getUsername().equals(loginModel.getUsername())
-				&& user.getPassword().equalss(loginModel.getPassword()) )
+				&& user.getPassword().equals(loginModel.getPassword()) )
     		{
     			model.addAttribute("title", "Home");
     			model.addAttribute("user", user);
-    			return "/";
+    			return "home";
     		}
     	}
     	
     	// if user does not exist
-    	model.addAttribute("title", "Login Form");
-        model.addAttribute("loginModel", new LoginModel());
-        return "login";
+        return displayLogin(model);
     }
     
     /**
