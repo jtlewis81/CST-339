@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="layouts/loginRegistrationTemplate">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Name</title>
+</head>
+	<body>
+	
+		<!--Displays the body content of the login form-->
+		<div layout:fragment="content">
+		<!--Pull in image from internet-->
+			<img style="padding-top: 4%; height: 300px; width:auto;" th:src="@{https://th.bing.com/th/id/R.2dc69e1102901c5b1c572d2c2cf530af?rik=KHYkcE1i6od9Aw&riu=http%3a%2f%2fimages.clipartpanda.com%2fblue-flame-clipart-24078-gas-flame-logo-design.png&ehk=7GVinXOZISHLOMtiI%2bpY9WwYGzVhj2hWsv0Z4ECKjMM%3d&risl=&pid=ImgRaw&r=0}"/><br/><br/>
+			<h1 style="color: Black;">Log In</h1>
+			<!--Form to take the user to the home page when submitted and info is validated-->
+			<form class="row g-3" action="#" th:action="@{doLogin}" th:object="${loginModel}" method="post">
+			
+				<div class="col-md-10">
+					<label for="username" class="col-sm-2 col-form-label">User Name:</label>
+					<input type="text" th:field="*{username}" id="username">
+					<h5 style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</h5>
+				</div>
+				<div class="col-md-10">
+					<label for="password" class="col-sm-2 col-form-label">Password:</label>
+					<input type="password" th:field="*{password}" id="password">
+					<h5 style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</h5>
+				</div>
+		  		   <div class="col-sm-12">
+		  			<button type="submit" class="btn btn-primary">Log In</button>
+		  		</div>
+			</form><br/>
+			<!--Link to the registration form-->
+			<a th:href="@{registration}">Register a New Profile</a></br>
+		</div>
+	</body>
+</html>

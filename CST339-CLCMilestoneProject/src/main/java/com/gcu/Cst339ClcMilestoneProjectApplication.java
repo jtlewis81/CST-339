@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Cst339ClcMilestoneProjectApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Hello there!");
 		SpringApplication.run(Cst339ClcMilestoneProjectApplication.class, args);
 	}
 

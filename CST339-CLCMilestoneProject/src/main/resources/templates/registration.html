@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="layouts/loginRegistrationTemplate">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Name</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+	<h1 style="color:blue; padding-bottom:2%">New User</h1>
+	
+	<!--Form to create a new user, no data validation for inputs currently-->
+	<form class="row g-3" action="#" th:action="@{/login/}" th:object="${userModel}">
+		<div class="row mb-3">
+			<label class="col-sm-2 col-form-label">Name:</label>
+  			<div class="col">
+    			<input type="text" class="form-control" placeholder="First name" aria-label="First name" required>
+  			</div>
+  			<div class="col">
+    			<input type="text" class="form-control" placeholder="Last name" aria-label="Last name" required>
+  			</div>
+		</div>
+		<div class="row mb-3">
+    		<label for="inputEmail" class="col-sm-2 col-form-label">Email:</label>
+    		<div class="col-sm-10">
+      			<input type="email" class="form-control" id="inputEmail" required>
+    		</div>
+  		</div>
+  		<div class="row mb-3">
+    		<label for="inputPhone" class="col-sm-2 col-form-label">Phone:</label>
+    		<div class="col-sm-10">
+      			<input type="text" class="form-control" id="inputPhone" required>
+    		</div>
+  		</div>
+  		<div class="row mb-3">
+    		<label for="inputUsername" class="col-sm-2 col-form-label">Username:</label>
+    		<div class="col-sm-10">
+      			<input type="text" class="form-control" id="inputUsername" required>
+    		</div>
+  		</div>
+  		<div class="row mb-3">
+    		<label for="inputPassword" class="col-sm-2 col-form-label">Password:</label>
+    		<div class="col-sm-10">
+      			<input type="password" class="form-control" id="inputPassword" required>
+    		</div>
+  		</div>
+  		<div class="row mb-3"> 	    		
+  			<div class="col-sm-12">
+  				<button type="submit" class="btn btn-primary">Submit</button>
+  			</div>
+  		</div>
+	</form>
+	
+	<a th:href="@{/}">Cancel</a></br>
+	
+	</div>
+</body>
+</html>
