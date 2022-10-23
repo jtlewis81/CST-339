@@ -14,6 +14,7 @@ public class HomeController {
     public String display(Model model) 
     {
         model.addAttribute("title", "Home");
+        model.addAttribute("pageName", "Home");
         return "home";
     }
 }

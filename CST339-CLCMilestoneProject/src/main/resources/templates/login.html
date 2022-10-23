@@ -19,6 +19,12 @@
 				<div class="col-md-10">
 					<label for="username" class="col-sm-2 col-form-label">User Name:</label>
 					<input type="text" th:field="*{username}" id="username" required>
+					<h5 style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</h5>
+				</div>
+				<div class="col-md-10">
+					<label for="password" class="col-sm-2 col-form-label">Password:</label>
+					<input type="password" th:field="*{password}" id="password" required> 
+					<h5 style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</h5>
 				</div>
 				<div class="col-md-10">
 					<label for="password" class="col-sm-2 col-form-label">Password:</label>
@@ -36,7 +42,7 @@
 		  		</div>
 			</form><br/>
 			<!--Link to the registration form-->
-			<a th:href="@{registration}">Register a New Profile</a></br>
+			<a th:href="@{registration}" class="btn btn-outline-secondary">Register a New Profile</a></br>
 		</div>
 	</body>
 </html>
