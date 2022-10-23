@@ -20,7 +20,8 @@ public class AddController {
     public String display(Model model) 
     {
         model.addAttribute("title", "Add Post");
-        model.addAttribute("addModel", new AddModel());
+        model.addAttribute("addModel", new AddModel());       
+        model.addAttribute("pageName", "Create Post");
         return "add";
     }
 }

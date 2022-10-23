@@ -68,7 +68,8 @@ public class LoginController
     		{
     			model.addAttribute("title", "Profile");
     			model.addAttribute("user", user);
-    			return "own-account";
+                model.addAttribute("pageName", "Home");
+    			return "home";
     		}
     	}
     	

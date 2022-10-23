@@ -12,7 +12,8 @@ public class FriendsController {
     @GetMapping("/")
     public String display(Model model) 
     {
-        model.addAttribute("title", "Friends");
+        model.addAttribute("title", "Friends");       
+        model.addAttribute("pageName", "Friends");
         
         return "friends";
     }
