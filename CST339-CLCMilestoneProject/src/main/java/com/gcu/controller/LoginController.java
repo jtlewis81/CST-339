@@ -38,7 +38,7 @@ public class LoginController
      * 
      * @return
      */
-    @PostMapping("/doLogin")
+    @PostMapping("/home")
     public String doLogin(@Valid LoginModel loginModel, BindingResult bindingResult, Model model)
     {
 
