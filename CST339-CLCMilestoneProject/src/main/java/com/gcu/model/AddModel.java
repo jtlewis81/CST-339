@@ -7,8 +7,6 @@ public class AddModel {
     private String caption;
     private String picture;
     
-
-    
     public void setTitle(String title) {
         this.title = title;
     }

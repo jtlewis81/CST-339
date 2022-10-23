@@ -43,7 +43,7 @@ public class RegistrationController {
         }
         
         model.addAttribute("title", "Login");
-        return "/";
+        return "/user_account";
     }
     
     
