@@ -66,14 +66,15 @@ public class LoginController
     		if (user.getUsername().equals(loginModel.getUsername())
 				&& user.getPassword().equals(loginModel.getPassword()) )
     		{
-    			model.addAttribute("title", "Profile");
+    			model.addAttribute("title", "Home");
     			model.addAttribute("user", user);
-    			return "user_account";
+    			return "home";
     		}
     	}
     	
     	// if user does not exist, go to registration page
-    	return newUser(model);
+    	model.addAttribute("title", "Login Form");      
+        return "login";
     	
     }
     
