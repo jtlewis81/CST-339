@@ -1,7 +1,5 @@
 package com.gcu.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +7,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.gcu.Cst339ClcMilestoneProjectApplication;
 import com.gcu.model.LoginModel;
 import com.gcu.model.RegistrationModel;
 import com.gcu.model.UserModel;
@@ -43,39 +43,35 @@ public class LoginController
     {
 
         // if input errors, remain on login page and display error messages
-        if(bindingResult.hasErrors()) {
-            model.addAttribute("title", "Login Form");      
-            return "login";
+        if(bindingResult.hasErrors()
+    		|| loginModel.getUsername().equals("")
+    		|| loginModel.getPassword().equals(""))
+        {
+            // model.addAttribute("title", "Login Form");
+            return ";
         }
         
-        // temp registered users
-    	List<UserModel> users = new ArrayList<UserModel>();
-    	users.add(new UserModel("jlewis", "password"));
-    	users.add(new UserModel("eperez", "password"));
-    	users.add(new UserModel("jgooch", "password"));
-    	users.add(new UserModel("ssuhail", "password"));
-    	
         // if no errors, check for valid user
-    	for(int i = 0; i < users.size(); i++)
+    	for(int i = 0; i < Cst339ClcMilestoneProjectApplication.Users.size(); i++)
     	{
     		// temp user data
-    		UserModel user = users.get(i);
+    		UserModel user = Cst339ClcMilestoneProjectApplication.Users.get(i);
     		
     		// if the username and password match that of an existing user,
     		// continue to user's profile page (user_account)
     		if (user.getUsername().equals(loginModel.getUsername())
-				&& user.getPassword().equals(loginModel.getPassword()) )
+				&& user.getPassword().equalss(loginModel.getPassword()) )
     		{
     			model.addAttribute("title", "Home");
     			model.addAttribute("user", user);
-    			return "home";
+    			return "/";
     		}
     	}
     	
-    	// if user does not exist, go to registration page
-    	model.addAttribute("title", "Login Form");      
+    	// if user does not exist
+    	model.addAttribute("title", "Login Form");
+        model.addAttribute("loginModel", new LoginModel());
         return "login";
-    	
     }
     
     /**

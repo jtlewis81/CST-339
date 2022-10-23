@@ -19,14 +19,19 @@
 				<div class="col-md-10">
 					<label for="username" class="col-sm-2 col-form-label">User Name:</label>
 					<input type="text" th:field="*{username}" id="username">
-					<h5 style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</h5>
 				</div>
 				<div class="col-md-10">
 					<label for="password" class="col-sm-2 col-form-label">Password:</label>
 					<input type="password" th:field="*{password}" id="password">
-					<h5 style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</h5>
 				</div>
-		  		   <div class="col-sm-12">
+				
+				<!-- validation errors -->
+				<div th:if="${#fields.hasErrors('*')}">List of Errors</div>
+				<div th:each="err : ${#fields.errors('*')}">
+					<span style="color:red" th:text="${err}" class="fieldError"></span>
+				</div>
+				
+		  		<div class="col-sm-12">
 		  			<button type="submit" class="btn btn-primary">Log In</button>
 		  		</div>
 			</form><br/>
