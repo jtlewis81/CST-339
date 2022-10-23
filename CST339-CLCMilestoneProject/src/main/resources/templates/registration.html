@@ -8,11 +8,9 @@
 </head>
 <body>
 
-<div layout:fragment="content">
-	<h1 style="color:blue; padding-bottom:2%">New User</h1>
-	
+<div layout:fragment="content">	
 	<!--Form to create a new user, no data validation for inputs currently-->
-	<form class="row g-3" action="#" th:action="@{/login/}" th:object="${userModel}">
+	<form class="row g-3" action="#" th:action="@{/login/}" th:object="${userModel}" style="width:75%;">
 		<div class="row mb-3">
 			<label class="col-sm-2 col-form-label">Name:</label>
   			<div class="col">
@@ -49,12 +47,10 @@
   		<div class="row mb-3"> 	    		
   			<div class="col-sm-12">
   				<button type="submit" class="btn btn-primary">Submit</button>
+				<a th:href="@{/}" class="btn btn-outline-secondary">Cancel</a></br>	
   			</div>
   		</div>
-	</form>
-	
-	<a th:href="@{/}">Cancel</a></br>
-	
+	</form>	
 	</div>
 </body>
 </html>

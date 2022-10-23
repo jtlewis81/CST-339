@@ -38,7 +38,7 @@ public class LoginController
      * 
      * @return
      */
-    @PostMapping("/doLogin")
+    @PostMapping("/home")
     public String doLogin(@Valid LoginModel loginModel, BindingResult bindingResult, Model model)
     {
 
@@ -68,7 +68,7 @@ public class LoginController
     		{
     			model.addAttribute("title", "Profile");
     			model.addAttribute("user", user);
-    			return "user_account";
+    			return "own-account";
     		}
     	}
     	
