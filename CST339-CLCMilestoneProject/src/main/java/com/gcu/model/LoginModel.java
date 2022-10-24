@@ -1,19 +1,24 @@
-package com.gcu.model;
+/**
+ *  Jamie Lewis
+ *  CST-339
+ *  10/23/22
+ *  
+ *  CLC Milestone Project
+ *   
+ *  Login Module - LoginModel
+ * 
+ */
 
-import javax.validation.constraints.NotNull;
+package com.gcu.model;
 
 public class LoginModel {
 
 	/**
 	 * The LoginModel consists of "username" and "password" String variables.
-	 * 
-	 * There are min and max lengths for each that must be validated.
 	 */
 	
-    @NotNull(message="User name is a required field")
     private String username;    
     
-    @NotNull(message="Password is a required field")
     private String password;
     
     public void setUsername(String user) {

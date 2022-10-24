@@ -1,5 +1,15 @@
-package com.gcu.controller;
+/**
+ *  Jamie Lewis
+ *  CST-339
+ *  10/23/22
+ *  
+ *  CLC Milestone Project
+ *   
+ *  Login Module - LoginController
+ * 
+ */
 
+package com.gcu.controller;
 import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.gcu.Cst339ClcMilestoneProjectApplication;
 import com.gcu.model.LoginModel;
 import com.gcu.model.RegistrationModel;
@@ -19,8 +28,6 @@ public class LoginController
 {
     /**
      * Display Login page
-     * 
-     * works for root or /login
      * 
      * @param model
      * @return
@@ -38,7 +45,7 @@ public class LoginController
      * 
      * @return
      */
-    @PostMapping("/home")
+    @PostMapping("/doLogin")
     public String doLogin(@Valid LoginModel loginModel, BindingResult bindingResult, Model model)
     {
 
@@ -54,7 +61,7 @@ public class LoginController
     		// continue to user's profile page (user_account)
     		if (user.getUsername().equals(loginModel.getUsername())
 				&& user.getPassword().equals(loginModel.getPassword()) )
-    		{
+    		{    			
     			model.addAttribute("title", "Home");
     			model.addAttribute("user", user);
                 model.addAttribute("pageName", "Home");
@@ -63,6 +70,7 @@ public class LoginController
     	}
     	
     	// if user does not exist
+    	model.addAttribute("invalidError", "Invalid Login");
         return displayLogin(model);
     }
     
@@ -79,4 +87,7 @@ public class LoginController
         model.addAttribute("registrationModel", new RegistrationModel());
         return "registration";
     }
+    
+    
+    
 }
