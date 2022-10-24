@@ -33,9 +33,16 @@
 					<span style="color:red" th:text="${err}" class="fieldError"></span>
 				</div>
 				
-		  		<div class="col-sm-12">
-		  			<button type="submit" class="btn btn-primary">Log In</button>
-		  		</div>
+				<div class="row">
+					<div class="col-sm-5"></div>					
+					<div class="col-sm-1">
+						<button type="submit" class="btn btn-primary">Log In</button>
+					</div>
+					<div class="col-sm-1">
+						<a style="color:blue; text-decoration: none;" th:href="@{/forgot-password/}">Forgot Password?</a>
+					</div>
+					<div class="col-sm-5"></div>
+				</div>
 			</form><br/>
 			<!--Link to the registration form-->
 			<a th:href="@{registration}" class="btn btn-outline-secondary">Register a New Profile</a></br>
