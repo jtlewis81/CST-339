@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<style>
+		td {
+			font-size:150%;
+			padding:2%;
+		}
+		.pad {
+			padding-right:50px;
+		}
+	</style>
+	<body>
+		<h1>Successful Registration!</h2>
+		<hr>
+		
+		<table>
+			<tr><td class="pad">FirstName:</td><td th:text="${firstName}">?</td></tr>
+			<tr><td>LastName:</td><td th:text="${lastName}">?</td></tr>
+			<tr><td>Email:</td><td th:text="${email}">?</td></tr>
+			<tr><td>Phone:</td><td th:text="${phone}">?</td></tr>
+			<tr><td>Username:</td><td th:text="${username}">?</td></tr>
+			<tr><td>Password:</td><td th:text="${password}">?</td></tr>
+		</table>
+		<br>
+		
+		<a th:href="@{/home/}" style="font-size:125%; color:dodgerblue;">Click here to go to your homepage</a>
+	</body>
+</html>
