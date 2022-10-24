@@ -4,15 +4,12 @@
 <meta charset="UTF-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	    <title>Cst-339 Spring Boot Activity Application </title>
+	    <title>FriendZone</title>
 </head>
 <body>
 <div th:fragment="header">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 	  <div class="container-fluid">
-	  	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      		<span class="navbar-toggler-icon"></span>
-    	</button>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
 	    </button>
@@ -22,7 +19,7 @@
 	          <a class="nav-link active" aria-current="page" th:href="@{/home/}">Home</a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" th:href="@{/user_account/}">Your Profile</a>
+	          <a class="nav-link" th:href="@{/own-account/}">Your Profile</a>
 	        </li>
 	        <li class="nav-item">
 	          <a class="nav-link" th:href="@{/friends/}">Friends</a>
@@ -33,6 +30,20 @@
 	      </ul>
 	    </div>
 	  </div>
+	  <div style="justify-content: center; padding-right:41%; flex-direction:column;" class="navbar-collapse">  	
+		<div class="row">
+		  <a class="navbar-brand" th:href="@{/home/}" style="font-style:italic; font-size: 1.5vh;">FriendZone</a>
+	  	</div>
+		  	<div class="row" style="padding-top: 5%;">
+		  		<h1 th:text="${pageName}" style="color:white; font-weight: bold;">Page name</h1>
+	  		</div>
+		</div>
+	  	<div style="justify-content:end; padding-right: 3%;"class="collapse navbar-collapse">
+			<ul class="navbar-nav ms-auto">
+				<a th:href="@{/own-account/}"><img class="img-thumbnail img-fluid" alt="Your Profile" th:src="@{/images/Avatar.jpg}"/></a>
+		  	</ul>
+		</div>
+	</div>
 	</nav>
 </div>
 	
@@ -40,7 +51,7 @@
 </div>
 
 <div th:fragment="footer">
-	<h5 style="color:purple; text-align: center; position:fixed; bottom: 0; width: 100%;">Copyright 2020 GCU</h5>
+	<h5 style="color:blue; text-align: center; position:fixed; bottom: 0; width: 80%;">Copyright 2022 GCU</h5>
 </div>
 </body>
 </html>

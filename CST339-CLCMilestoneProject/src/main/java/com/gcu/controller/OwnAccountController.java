@@ -6,15 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 
+
 @Controller
-@RequestMapping("/home")
-public class HomeController {
+@RequestMapping("/own-account")
+public class OwnAccountController {
 
     @GetMapping("/")
     public String display(Model model) 
     {
-        model.addAttribute("title", "Home");
-        model.addAttribute("pageName", "Home");
-        return "home";
+        model.addAttribute("title", "Your Account");
+        model.addAttribute("pageName", "Account");
+        
+        return "own-account";
     }
 }

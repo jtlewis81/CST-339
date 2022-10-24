@@ -14,24 +14,38 @@
 			<img style="padding-top: 4%; height: 300px; width:auto;" th:src="@{https://th.bing.com/th/id/R.2dc69e1102901c5b1c572d2c2cf530af?rik=KHYkcE1i6od9Aw&riu=http%3a%2f%2fimages.clipartpanda.com%2fblue-flame-clipart-24078-gas-flame-logo-design.png&ehk=7GVinXOZISHLOMtiI%2bpY9WwYGzVhj2hWsv0Z4ECKjMM%3d&risl=&pid=ImgRaw&r=0}"/><br/><br/>
 			<h1 style="color: Black;">Log In</h1>
 			<!--Form to take the user to the home page when submitted and info is validated-->
-			<form class="row g-3" action="#" th:action="@{doLogin}" th:object="${loginModel}" method="post">
+			<form class="row g-3" action="#" th:action="@{home}" th:object="${loginModel}" method="post">
 			
 				<div class="col-md-10">
 					<label for="username" class="col-sm-2 col-form-label">User Name:</label>
-					<input type="text" th:field="*{username}" id="username">
+					<input type="text" th:field="*{username}" id="username" required>
 					<h5 style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</h5>
 				</div>
 				<div class="col-md-10">
 					<label for="password" class="col-sm-2 col-form-label">Password:</label>
-					<input type="password" th:field="*{password}" id="password">
+					<input type="password" th:field="*{password}" id="password" required> 
 					<h5 style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</h5>
 				</div>
-		  		   <div class="col-sm-12">
-		  			<button type="submit" class="btn btn-primary">Log In</button>
-		  		</div>
+				
+				<!-- validation errors -->
+				<div th:if="${#fields.hasErrors('*')}">List of Errors</div>
+				<div th:each="err : ${#fields.errors('*')}">
+					<span style="color:red" th:text="${err}" class="fieldError"></span>
+				</div>
+				
+				<div class="row">
+					<div class="col-sm-5"></div>					
+					<div class="col-sm-1">
+						<button type="submit" class="btn btn-primary">Log In</button>
+					</div>
+					<div class="col-sm-1">
+						<a style="color:blue; text-decoration: none;" th:href="@{/forgot-password/}">Forgot Password?</a>
+					</div>
+					<div class="col-sm-5"></div>
+				</div>
 			</form><br/>
 			<!--Link to the registration form-->
-			<a th:href="@{/registration/}">Register a New Profile</a></br>
+			<a th:href="@{registration}" class="btn btn-outline-secondary">Register a New Profile</a><br/>
 		</div>
 	</body>
 </html>
