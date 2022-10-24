@@ -7,7 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-//import com.gcu.model.LoginModel;
+import com.gcu.Cst339ClcMilestoneProjectApplication;
 import com.gcu.model.RegistrationModel;
 import com.gcu.model.UserModel;
 
@@ -41,7 +41,7 @@ public class RegistrationController
             model.addAttribute("title", "Registration");      
             return "registration";
         }
-        
+        Cst339ClcMilestoneProjectApplication.Users.add(new UserModel(registrationModel.getUsername(), registrationModel.getPassword()));        
         model.addAttribute("firstName", registrationModel.getFirstName());
         model.addAttribute("lastName", registrationModel.getLastName());
         model.addAttribute("email", registrationModel.getEmail());
