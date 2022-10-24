@@ -8,14 +8,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/user_account")
-public class UserAccountController {
+@RequestMapping("/own-account")
+public class OwnAccountController {
 
     @GetMapping("/")
     public String display(Model model) 
     {
         model.addAttribute("title", "Your Account");
+        model.addAttribute("pageName", "Account");
         
-        return "user_account";
+        return "own-account";
     }
 }
