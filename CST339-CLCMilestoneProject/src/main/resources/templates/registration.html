@@ -8,9 +8,16 @@
 </head>
 <body>
 
+<<<<<<< Updated upstream
 <div layout:fragment="content">	
 	<!--Form to create a new user, no data validation for inputs currently-->
 	<form class="row g-3" action="#" th:action="@{/login/}" th:object="${userModel}" style="width:75%;">
+=======
+<div layout:fragment="content">
+	
+	<!--Form to create a new user, no data validation for inputs currently-->
+	<form class="row g-3" action="#" th:action="@{submitRegistration}" th:object="${registrationModel}" method="post" style="padding-top:4%; width:80%;">
+>>>>>>> Stashed changes
 		<div class="row mb-3">
 			<label class="col-sm-2 col-form-label">Name:</label>
   			<div class="col">

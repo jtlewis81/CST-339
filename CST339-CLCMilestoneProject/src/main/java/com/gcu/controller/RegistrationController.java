@@ -24,8 +24,14 @@ public class RegistrationController {
     @GetMapping("/")
     public String displayRegistration(Model model) 
     {
+<<<<<<< Updated upstream
         model.addAttribute("title", "Registration");
         model.addAttribute("userModel", new UserModel());
+=======
+        model.addAttribute("title", "Registration");       
+        model.addAttribute("pageName", "Create Account");
+        model.addAttribute("registrationModel", new RegistrationModel());
+>>>>>>> Stashed changes
         return "registration";
     }
     
