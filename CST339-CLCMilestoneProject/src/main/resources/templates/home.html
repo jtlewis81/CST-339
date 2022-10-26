@@ -14,13 +14,17 @@
 </head>
 <body>
 <div layout:fragment="content">
+	<!--This is all the code for organizing the Buttons at the top of the home page-->
+	<!--Many of these divs are for positioning/responsive design-->
 	<div class="container-md" style="padding-top:2%;">
 		<div class="row">
 			<div class="col">
 				<div class="row">
+					<!--Button to sort the home feed by your friends Posts-->
 			    	<div class="col" style="padding-bottom: 1%;">
 			    		<button type="button" class="btn btn-primary" style="width: 95%;">Home</button>
 			    	</div>
+					<!--Button to sort home feed by technology posts-->
 			    	<div class="col">
 			    		<button type="button" class="btn btn-primary" style="width: 95%;">Technology</button>
 			    	</div>
@@ -28,15 +32,18 @@
 		    	</div>
 	    	</div>
 	    	<div class="col">
+				<!--button to create a post-->
 	    		<form action="#" th:action="@{/add/}">
 	    			<button type="submit" class="btn"><img src="/images/Create Post Pic.png" alt="Create Post" class="img-fluid"/></button>
 	    		</form>
 	    	</div>
 	    	<div class="col">
 	    		<div class="row">
+					<!--Button to sort home feed by art posts-->
 			    	<div class="col" style="padding-bottom: 1%;">
 			    		<button type="button" class="btn btn-primary" style="width: 95%;">Art</button>
 			    	</div>
+					<!--Button to sort home feed by sports-->
 			    	<div class="col">
 			    		<button type="button" class="btn btn-primary" style="width: 95%;">Sports</button>
 			    	</div>
