@@ -1,7 +1,7 @@
 /**
  *  Jamie Lewis
  *  CST-339
- *  10/23/22
+ *  Last Updated: 10/30/22
  *  
  *  CLC Milestone Project
  *   
@@ -10,22 +10,26 @@
  */
 
 package com.gcu.controller;
+
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.gcu.Cst339ClcMilestoneProjectApplication;
+import com.gcu.business.SecurityBusinessService;
 import com.gcu.model.LoginModel;
 import com.gcu.model.RegistrationModel;
-import com.gcu.model.UserModel;
 
 @Controller
 @RequestMapping("/")
 public class LoginController 
 {
+	@Autowired
+	private SecurityBusinessService securityService;
+	
     /**
      * Display Login page
      * 
@@ -41,32 +45,25 @@ public class LoginController
 	}
     
     /**
-     * performs a login
+     * Performs a login
      * 
+     * @param loginModel
+     * @param bindingResult
+     * @param model
      * @return
      */
     @PostMapping("/doLogin")
     public String doLogin(@Valid LoginModel loginModel, BindingResult bindingResult, Model model)
     {
-
     	// using bootstrap validation for blank fields
         
-        // check for valid user
-    	for(int i = 0; i < Cst339ClcMilestoneProjectApplication.Users.size(); i++)
+        // if valid user, continue to the user's home page
+    	if (securityService.authenticate(loginModel.getUsername(), loginModel.getPassword()))
     	{
-    		// temp user data
-    		UserModel user = Cst339ClcMilestoneProjectApplication.Users.get(i);
-    		
-    		// if the username and password match that of an existing user,
-    		// continue to user's profile page (user_account)
-    		if (user.getUsername().equals(loginModel.getUsername())
-				&& user.getPassword().equals(loginModel.getPassword()) )
-    		{    			
-    			model.addAttribute("title", "Home");
-    			model.addAttribute("user", user);
+    		model.addAttribute("title", "Home");
+    			model.addAttribute("user", loginModel.getUsername());
                 model.addAttribute("pageName", "Home");
     			return "home";
-    		}
     	}
     	
     	// if user does not exist
