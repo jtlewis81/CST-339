@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gcu.Cst339ClcMilestoneProjectApplication;
 import com.gcu.business.SecurityBusinessService;
-import com.gcu.model.LoginModel;
 import com.gcu.model.RegistrationModel;
 import com.gcu.model.UserModel;
 

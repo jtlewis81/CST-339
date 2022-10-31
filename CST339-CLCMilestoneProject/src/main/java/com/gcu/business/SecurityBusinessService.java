@@ -11,14 +11,9 @@
 
 package com.gcu.business;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import com.gcu.Cst339ClcMilestoneProjectApplication;
 import com.gcu.model.UserModel;
-import com.gcu.model.PostModel;
 
 
 @Service

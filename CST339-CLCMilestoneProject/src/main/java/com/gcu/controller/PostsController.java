@@ -1,7 +1,6 @@
 package com.gcu.controller;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import javax.validation.Valid;
 
@@ -14,11 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gcu.Cst339ClcMilestoneProjectApplication;
 import com.gcu.business.SecurityBusinessService;
 import com.gcu.model.PostModel;
-import com.gcu.model.RegistrationModel;
-import com.gcu.model.UserModel;
 
 @Controller
 @RequestMapping("/posts")

@@ -45,15 +45,12 @@ public class UserModel
     	this.username = username;
     	this.password = password;
     }
-    
-    /**
-     *  empty constructor
-     */
-    public UserModel()
-    {    	
-    }    
+     
     
 	// getters and setters for member variables of user model
+
+    public UserModel() {
+    }
 
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }

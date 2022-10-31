@@ -21,15 +21,8 @@
 			justify-content:center;
 			flex-wrap:column;
 		}
-		tbody td {
-			padding:1% 0%;
-		}
-		tbody tr {
-			border-bottom:1px solid dodgerblue;
-		}
 	</style>
 </head>
-
 <body>
     <div layout:fragment="content" style="padding-top:1%;">	    	
    	 	<div id="PostBox">
@@ -39,27 +32,6 @@
 			</form>
 		</div>
 		<br>
-		<!-- 
-		<table style="width:56%; margin-bottom:3%;">
-			<thead>
-				<tr>
-					<th style="text-align:center">Username</th>
-					<th style="text-align:center">Content</th>
-					<th style="text-align:center">Timestamp</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:if="${posts.empty}">
-					<td style="text-align:center" colspan="4">No Posts Exist.</td>
-				</tr>
-				<tr th:each="post : ${posts}">
-					<td style="text-align:center"><h5 th:text="${post.getUsername()}">?</h5></td>
-					<td style="text-align:center"><h5 th:text="${post.getContent()}">?</h5></td>
-					<td style="text-align:center"><h5 th:text="${post.getTimestamp}">?</h5></td>
-				</tr>
-			</tbody>
-		</table>		
-		<br> -->
     </div>    
 </body>
 </html>
