@@ -63,6 +63,7 @@ public class LoginController
     		model.addAttribute("title", "Home");
 			model.addAttribute("user", loginModel.getUsername());
             model.addAttribute("pageName", "Home");
+            model.addAttribute("posts", securityService.currentlyLoggedIn.getPosts());
             
 			return "home";
     	}
@@ -84,8 +85,5 @@ public class LoginController
         model.addAttribute("title", "New User Registration");
         model.addAttribute("registrationModel", new RegistrationModel());
         return "registration";
-    }
-    
-    
-    
+    }     
 }

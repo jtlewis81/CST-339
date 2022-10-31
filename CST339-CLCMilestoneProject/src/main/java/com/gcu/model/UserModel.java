@@ -1,5 +1,8 @@
 package com.gcu.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UserModel 
 { 
     // Private Member variables
@@ -9,6 +12,7 @@ public class UserModel
     private String username;
     private String phone;
     private String password;    
+    private List<PostModel> Posts = new ArrayList<PostModel>();
     
     /**
      * full Constructor
@@ -68,4 +72,8 @@ public class UserModel
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+    
+    public List<PostModel> getPosts() { return Posts; }
+    public void setPosts(List<PostModel> posts) { this.Posts = posts; }
+    public void addPost(PostModel postModel) { getPosts().add(0, postModel); }
 }

@@ -8,7 +8,9 @@ public class PostModel
     // VARIABLES 
     
     private String Username; 
+    
     private String Content;
+    
     private LocalDateTime Timestamp; 
     
     
@@ -39,5 +41,5 @@ public class PostModel
     
     public void setUsername(String userId) { this.Username = userId; }
     public void setContent(String content) { this.Content = content; }
-    public void setTimestamp(LocalDateTime timestamp) { this.Timestamp = timestamp; }       
+    public void setTimestamp(LocalDateTime timestamp) { this.Timestamp = timestamp; }   
 }

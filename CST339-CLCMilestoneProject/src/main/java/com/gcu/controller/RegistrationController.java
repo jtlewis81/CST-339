@@ -1,13 +1,19 @@
 package com.gcu.controller;
 
 import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.gcu.Cst339ClcMilestoneProjectApplication;
+import com.gcu.business.SecurityBusinessService;
+import com.gcu.model.LoginModel;
 import com.gcu.model.RegistrationModel;
 import com.gcu.model.UserModel;
 
@@ -15,6 +21,9 @@ import com.gcu.model.UserModel;
 @RequestMapping("/registration")
 public class RegistrationController 
 {
+    @Autowired
+    public SecurityBusinessService securityService;
+    
 	/**
 	 * Display Registration page
 	 * 
@@ -39,20 +48,28 @@ public class RegistrationController
      * @return
      */
     @PostMapping("/submitRegistration")
-    public String submitRegistration(@Valid RegistrationModel registrationModel, BindingResult bindingResult, Model model) 
-    {
+    public ModelAndView submitRegistration(@Valid RegistrationModel registrationModel, BindingResult bindingResult, Model model) 
+    {      
+        ModelAndView mv = new ModelAndView(); 
+        
         if (bindingResult.hasErrors()) 
         {
-            model.addAttribute("title", "Registration");      
-            return "registration";
+            mv.addObject("title", "Registration");
+            mv.addObject("pageName", "Registration");
+            mv.setViewName("registration");   
+            return mv;
         }
 
         // Add new User to list of valid login credentials. 
-        Cst339ClcMilestoneProjectApplication.Users.add(new UserModel(registrationModel.getUsername(), registrationModel.getPassword())); 
+        UserModel user = new UserModel(registrationModel.getUsername(), registrationModel.getPassword()); 
+        Cst339ClcMilestoneProjectApplication.Users.add(user); 
+        securityService.currentlyLoggedIn = user;
+        
+        mv.addObject("posts", securityService.currentlyLoggedIn.getPosts());
+        mv.addObject("title", "Home");
+        mv.addObject("pageName", "Home");
+        mv.setViewName("home");
 
-        // Set attributes for Thymeleaf layout: registrationSuccess.html
-        model.addAttribute("user", registrationModel); 
-
-        return "registrationSuccess";
+        return mv;
     }    
 }

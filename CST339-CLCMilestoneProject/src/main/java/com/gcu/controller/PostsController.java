@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gcu.Cst339ClcMilestoneProjectApplication;
 import com.gcu.business.SecurityBusinessService;
@@ -38,14 +39,13 @@ public class PostsController
         model.addAttribute("title", "Add Post");     
         model.addAttribute("pageName", "Create Post");
         model.addAttribute("postModel", new PostModel()); 
-        model.addAttribute("posts", securityService.SamplePosts); 
         
         return "posts";
     }
     
     @PostMapping("/post")
-    public String addPost(@Valid PostModel postModel, BindingResult bindingResult, Model model) 
-    {
+    public ModelAndView addPost(@Valid PostModel postModel, BindingResult bindingResult, Model model) 
+    {        
         // Set PostModel properties. 
         LocalDateTime timestamp = LocalDateTime.now();         
         postModel.setTimestamp(timestamp); 
@@ -55,18 +55,15 @@ public class PostsController
         System.out.println("Username: " + postModel.getUsername());
         System.out.println("Content:\n" + postModel.getContent());
         System.out.println("Timestamp: " + postModel.getTimestamp());
-        
-//        if (bindingResult.hasErrors()) 
-//        {
-//            model.addAttribute("title", "Registration");      
-//            return "post";
-//        }
 
         // Add new User to list of valid login credentials. 
-        securityService.SamplePosts.add(0, postModel); 
+        securityService.currentlyLoggedIn.addPost(postModel);
 
-        model.addAttribute("post", postModel); 
+        ModelAndView homeView = new ModelAndView(); 
+        homeView.addObject("posts", securityService.currentlyLoggedIn.getPosts());
+        homeView.addObject("pageName", "Home");
+        homeView.setViewName("home");
         
-        return "post";
+        return homeView;
     }
 }
