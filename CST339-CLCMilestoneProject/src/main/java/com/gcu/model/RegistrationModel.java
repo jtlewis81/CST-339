@@ -43,6 +43,7 @@ public class RegistrationModel
     {    	
     }
     
+    
     // GETTERS/SETTERS
     
     // FirstName
@@ -68,5 +69,4 @@ public class RegistrationModel
     // Password
     public String getPassword() { return Password; }
     public void setPassword(String password) { this.Password = password; }
-
 }

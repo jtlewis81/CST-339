@@ -8,17 +8,18 @@
 			padding-right:50px;
 		}
 	</style>
+
 	<body>
 		<h1>Successful Registration!</h2>
 		<hr>
 		
 		<table>
-			<tr><td class="pad">FirstName:</td><td th:text="${firstName}">?</td></tr>
-			<tr><td>LastName:</td><td th:text="${lastName}">?</td></tr>
-			<tr><td>Email:</td><td th:text="${email}">?</td></tr>
-			<tr><td>Phone:</td><td th:text="${phone}">?</td></tr>
-			<tr><td>Username:</td><td th:text="${username}">?</td></tr>
-			<tr><td>Password:</td><td th:text="${password}">?</td></tr>
+			<tr><td class="pad">FirstName:</td><td th:text="${user.getFirstName()}">?</td></tr>
+			<tr><td>LastName:</td><td th:text="${user.getLastName()}">?</td></tr>
+			<tr><td>Email:</td><td th:text="${user.getEmail()}">?</td></tr>
+			<tr><td>Phone:</td><td th:text="${user.getPhone()}">?</td></tr>
+			<tr><td>Username:</td><td th:text="${user.getUsername()}">?</td></tr>
+			<tr><td>Password:</td><td th:text="${user.getPassword()}">?</td></tr>
 		</table>
 		<br>
 		

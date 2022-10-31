@@ -24,10 +24,12 @@ public class RegistrationController
     @GetMapping("/")
     public String displayRegistration(Model model) 
     {
+        // Set attributes for Thymeleaf layout: registration.html 
         model.addAttribute("userModel", new UserModel());
         model.addAttribute("title", "Registration");       
         model.addAttribute("pageName", "Create Account");
         model.addAttribute("registrationModel", new RegistrationModel());
+
         return "registration";
     }
     
@@ -39,18 +41,18 @@ public class RegistrationController
     @PostMapping("/submitRegistration")
     public String submitRegistration(@Valid RegistrationModel registrationModel, BindingResult bindingResult, Model model) 
     {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) 
+        {
             model.addAttribute("title", "Registration");      
             return "registration";
         }
-        Cst339ClcMilestoneProjectApplication.Users.add(new UserModel(registrationModel.getUsername(), registrationModel.getPassword()));        
-        model.addAttribute("firstName", registrationModel.getFirstName());
-        model.addAttribute("lastName", registrationModel.getLastName());
-        model.addAttribute("email", registrationModel.getEmail());
-        model.addAttribute("phone", registrationModel.getPhone());
-        model.addAttribute("username", registrationModel.getUsername());
-        model.addAttribute("password", registrationModel.getPassword());
+
+        // Add new User to list of valid login credentials. 
+        Cst339ClcMilestoneProjectApplication.Users.add(new UserModel(registrationModel.getUsername(), registrationModel.getPassword())); 
+
+        // Set attributes for Thymeleaf layout: registrationSuccess.html
+        model.addAttribute("user", registrationModel); 
+
         return "registrationSuccess";
-    }
-    
+    }    
 }
