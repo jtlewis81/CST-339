@@ -24,34 +24,26 @@ public class LoginModel {
      * 
      * @param user
      */
-    public void setUsername(String user) {
-        username = user;
-    }
+    public void setUsername(String user) { username = user; }
     
     /**
      * username getter
      * 
      * @return username
      */
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return username; }
     
     /**
      * password setter
      * 
      * @param pass
      */
-    public void setPassword(String pass) {
-        password = pass;
-    }
+    public void setPassword(String pass) { password = pass; }
     
     /**
      * password getter
      * 
      * @return password
      */
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() { return password; }
 }

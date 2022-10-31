@@ -61,9 +61,10 @@ public class LoginController
     	if (securityService.authenticate(loginModel.getUsername(), loginModel.getPassword()))
     	{
     		model.addAttribute("title", "Home");
-    			model.addAttribute("user", loginModel.getUsername());
-                model.addAttribute("pageName", "Home");
-    			return "home";
+			model.addAttribute("user", loginModel.getUsername());
+            model.addAttribute("pageName", "Home");
+            
+			return "home";
     	}
     	
     	// if user does not exist
