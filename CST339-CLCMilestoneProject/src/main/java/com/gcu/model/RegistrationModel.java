@@ -38,13 +38,13 @@ public class RegistrationModel
     	this.Username = username;
     	this.Password = password;
     }
-    
-    public RegistrationModel()
-    {    	
-    }
+        
     
     // GETTERS/SETTERS
     
+    public RegistrationModel() {
+    }
+
     // FirstName
     public String getFirstName() { return FirstName; }
     public void setFirstName(String firstName) { this.FirstName = firstName; }
@@ -68,5 +68,4 @@ public class RegistrationModel
     // Password
     public String getPassword() { return Password; }
     public void setPassword(String password) { this.Password = password; }
-
 }

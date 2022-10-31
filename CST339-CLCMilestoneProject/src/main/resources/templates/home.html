@@ -33,9 +33,9 @@
 	    	</div>
 	    	<div class="col">
 				<!--button to create a post-->
-	    		<form action="#" th:action="@{/add/}">
+	    		<form action="#" th:action="@{/posts/}">
 	    			<button type="submit" class="btn"><img src="/images/Create Post Pic.png" alt="Create Post" class="img-fluid"/></button>
-	    		</form>
+	    		</form> 
 	    	</div>
 	    	<div class="col">
 	    		<div class="row">
@@ -51,6 +51,30 @@
 		    	</div>
 	    	</div>
 	    </div>
+	</div>
+	<br>
+	
+	<div id="Posts">
+		<table style="width:56%; margin-bottom:3%;">
+			<thead>
+				<tr>
+					<th style="text-align:center">Username</th>
+					<th style="text-align:center">Content</th>
+					<th style="text-align:center">Timestamp</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${posts.empty}">
+					<td style="text-align:center" colspan="4">No Posts Exist.</td>
+				</tr>
+				<tr th:each="post : ${posts}">
+					<td style="text-align:center"><h5 th:text="${post.getUsername()}">?</h5></td>
+					<td style="text-align:center"><h5 th:text="${post.getContent()}">?</h5></td>
+					<td style="text-align:center"><h5 th:text="${post.getTimestamp}">?</h5></td>
+				</tr>
+			</tbody>
+		</table>		
+		<br>
 	</div>
 </div>
 </body>

@@ -15,9 +15,12 @@ import org.springframework.stereotype.Service;
 import com.gcu.Cst339ClcMilestoneProjectApplication;
 import com.gcu.model.UserModel;
 
+
 @Service
 public class SecurityBusinessService
 {
+    public UserModel currentlyLoggedIn = null; 
+    
 	/**
 	 * verify that the submitted username and password match an existing user
 	 * 
@@ -37,6 +40,7 @@ public class SecurityBusinessService
     		if (user.getUsername().equals(username)
 				&& user.getPassword().equals(password) )
     		{    			
+    		    currentlyLoggedIn = user;     
     			return true;
     		}
     	}
@@ -44,5 +48,4 @@ public class SecurityBusinessService
     	// if no username and password combination match
 		return false;
 	}
-	
 }

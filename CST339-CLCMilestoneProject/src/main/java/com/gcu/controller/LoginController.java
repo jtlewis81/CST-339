@@ -61,9 +61,11 @@ public class LoginController
     	if (securityService.authenticate(loginModel.getUsername(), loginModel.getPassword()))
     	{
     		model.addAttribute("title", "Home");
-    			model.addAttribute("user", loginModel.getUsername());
-                model.addAttribute("pageName", "Home");
-    			return "home";
+			model.addAttribute("user", loginModel.getUsername());
+            model.addAttribute("pageName", "Home");
+            model.addAttribute("posts", securityService.currentlyLoggedIn.getPosts());
+            
+			return "home";
     	}
     	
     	// if user does not exist
@@ -83,8 +85,5 @@ public class LoginController
         model.addAttribute("title", "New User Registration");
         model.addAttribute("registrationModel", new RegistrationModel());
         return "registration";
-    }
-    
-    
-    
+    }     
 }
