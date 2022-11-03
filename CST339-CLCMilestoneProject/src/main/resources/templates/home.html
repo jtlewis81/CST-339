@@ -52,6 +52,38 @@
 	    	</div>
 	    </div>
 	</div>
+<<<<<<< Updated upstream
+=======
+	<br>
+	
+	<div class="container-fluid justify-content-center" id="posts" style="padding-top:4%;">
+		<div th:if="${posts.empty}">
+			<div style="text-align:center">No Posts Exist.</div>
+		</div>
+		<div th:each="post : ${posts}">
+			<div class="container" id="post" style="width:60%; border:2px solid black; margin-bottom:3%;">
+				<div class="row" id="header" style="background-color:blue;">
+					<div class="col"></div>
+					<div class="col">
+						<h4 th:text="${post.getUsername()}" style="color:white;">?</h4>
+					</div>
+					<div class="col">
+						<h5 th:text="${post.getTimestamp}" style="color:darkgrey;">?</h5>
+					</div>
+
+				</div>
+				<!--
+				<div id="photo">
+					<img/>
+				</div>
+				-->
+				<div class="text-center" id="content">
+					<p th:text="${post.getContent()}">?</p>
+				</div>
+			</div>
+		</div>
+	</div>
+>>>>>>> Stashed changes
 </div>
 </body>
 </html>

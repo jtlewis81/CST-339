@@ -1,5 +1,6 @@
 package com.gcu.model;
 
+<<<<<<< Updated upstream
 public class UserModel {
     
     /**
@@ -7,6 +8,22 @@ public class UserModel {
      * Private Member variables
      * 
      */
+=======
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.gcu.business.HomeBusinessServiceInterface;
+
+public class UserModel 
+{ 
+
+    @Autowired
+    public HomeBusinessServiceInterface home;
+	
+    // Private Member variables
+>>>>>>> Stashed changes
     private String firstName;
     private String lastName;
     private String email;
@@ -33,6 +50,7 @@ public class UserModel {
 		this.username = username;
 		this.phone = phone;
 		this.password = password;
+		this.Posts = home.getPosts();
 	}
     
     /**
