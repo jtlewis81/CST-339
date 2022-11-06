@@ -1,5 +1,7 @@
 package com.gcu.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.gcu.Cst339ClcMilestoneProjectApplication;
 import com.gcu.business.SecurityBusinessService;
+import com.gcu.data.RegistrationDAOService;
 import com.gcu.model.RegistrationModel;
 import com.gcu.model.UserModel;
 
@@ -22,6 +25,10 @@ public class RegistrationController
 {
     @Autowired
     public SecurityBusinessService securityService;
+    @Autowired
+    private RegistrationDAOService registrationService;
+    
+    private static List<String> usernames; 
     
 	/**
 	 * Display Registration page
@@ -31,13 +38,14 @@ public class RegistrationController
 	 */
     @GetMapping("/")
     public String displayRegistration(Model model) 
-    {
-        // Set attributes for Thymeleaf layout: registration.html 
+    { 
+    	// Retrieve all existing Usernames from Users database table. 
+    	usernames = registrationService.getAllUsernames(); 
+    	
         model.addAttribute("userModel", new UserModel());
         model.addAttribute("title", "Registration");       
         model.addAttribute("pageName", "Create Account");
         model.addAttribute("registrationModel", new RegistrationModel());
-
         return "registration";
     }
     
@@ -51,8 +59,14 @@ public class RegistrationController
     {      
         ModelAndView mv = new ModelAndView(); 
         
-        if (bindingResult.hasErrors()) 
+        // Check if Username already exists.
+        boolean existingUserError = usernames.contains(registrationModel.getUsername());
+        
+        if (bindingResult.hasErrors() || existingUserError) 
         {
+        	if (existingUserError)
+        		mv.addObject("existingUserError", "Username already exists!"); 
+        	
             mv.addObject("title", "Registration");
             mv.addObject("pageName", "Registration");
             mv.setViewName("registration");   
@@ -60,15 +74,21 @@ public class RegistrationController
         }
 
         // Add new User to list of valid login credentials. 
-        UserModel user = new UserModel(registrationModel.getUsername(), registrationModel.getPassword()); 
+        if(registrationService.InsertIntoUsersTable(registrationModel))
+        	System.out.println("New user successfully added to Users table!"); 
+        else
+        	System.out.println("An error occurred adding new user to Users table."); 
+        
+        UserModel user = new UserModel(registrationModel.getUsername(), registrationModel.getPassword());   
+        
         Cst339ClcMilestoneProjectApplication.Users.add(user); 
+        
         securityService.currentlyLoggedIn = user;
         
         mv.addObject("posts", securityService.currentlyLoggedIn.getPosts());
         mv.addObject("title", "Home");
         mv.addObject("pageName", "Home");
         mv.setViewName("home");
-
         return mv;
     }    
 }

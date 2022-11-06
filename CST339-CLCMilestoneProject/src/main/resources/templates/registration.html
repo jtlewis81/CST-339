@@ -55,6 +55,7 @@
 				<a th:href="@{/}" class="btn btn-outline-secondary">Cancel</a></br>	
   			</div>
   		</div>
+  		<div align="center" th:if="${existingUserError}" style="color:red;">Username Already Exists!</div>
 	</form>	
 	</div>
 </body>
