@@ -138,7 +138,7 @@ INSERT INTO `users` (`ID`, `FirstName`, `LastName`, `Phone`, `Email`, `Username`
 (10, 'Cathlene', 'Webberley', '7758891120', 'cwebberley9@europa.eu', 'cwebberley9', 'XI6bxkOmLBx', NULL, 0),
 (11, 'Annora', 'Gunnell', '7656786350', 'agunnella@nps.gov', 'agunnella', 'L86PTsR', NULL, 0),
 (12, 'Wilma', 'Suero', '8805075509', 'wsuerob@msn.com', 'wsuerob', 'ABv6pVlk8a', NULL, 0),
-(13, 'D\'arcy', 'Sallan', '6584843828', 'dsallanc@facebook.com', 'dsallanc', 'bfT1Jzp5ghPx', NULL, 0),
+(13, 'Darcy', 'Sallan', '6584843828', 'dsallanc@facebook.com', 'dsallanc', 'bfT1Jzp5ghPx', NULL, 0),
 (14, 'Alvie', 'Lawlor', '9048561981', 'alawlord@cloudflare.com', 'alawlord', 'Nn2cinpLxTLB', NULL, 1),
 (15, 'Max', 'Ebourne', '6599427448', 'mebournee@facebook.com', 'mebournee', '9PgDCL', NULL, 0),
 (16, 'Mozelle', 'Rehn', '3557667907', 'mrehnf@dedecms.com', 'mrehnf', '2rV5lL', NULL, 0),
