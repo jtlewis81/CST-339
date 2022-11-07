@@ -3,24 +3,22 @@ package com.gcu.data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
-
 import com.gcu.business.SecurityBusinessService;
 import com.gcu.model.PostModel;
-import com.gcu.model.RegistrationModel;
 import com.gcu.model.UserModel;
 
 @Service
 public class RegistrationDAOService 
 {
 	@Autowired
+	@SuppressWarnings("unused")
 	private DataSource dataSource;
+	@Autowired
 	private JdbcTemplate jdbcTemplateObject;
 	
 	public static List<String> usernames;
@@ -28,7 +26,7 @@ public class RegistrationDAOService
 	@Autowired
 	private SecurityBusinessService securityService;
 	
-	// Constructor. 
+	// Constructor
 	public RegistrationDAOService(DataSource dataSource)
 	{
 		this.dataSource = dataSource;
@@ -162,7 +160,7 @@ public class RegistrationDAOService
 						record.getString("Timestamp"),
 						record.getInt("users_ID"),
 						record.getInt("friends_ID"),
-						securityService.currentlyLoggedIn.getUsername()));
+						securityService.getCurrentlyLoggedIn().getUsername()));
 			}
 		}
 		catch (Exception e){

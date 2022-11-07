@@ -1,18 +1,6 @@
-/**
- *  Jamie Lewis
- *  CST-339
- *  Last Updated: 10/30/22
- *  
- *  CLC Milestone Project
- *   
- *  Login Module - LoginController
- * 
- */
-
 package com.gcu.controller;
 
 import java.util.List;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,7 +63,7 @@ public class LoginController
     		model.addAttribute("title", "Home");
 			model.addAttribute("user", loginModel.getUsername());
             model.addAttribute("pageName", "Home");
-            model.addAttribute("posts", registrationService.GetUserPosts(securityService.currentlyLoggedIn));
+            model.addAttribute("posts", registrationService.GetUserPosts(securityService.getCurrentlyLoggedIn()));
             
 			return "home";
     	}
