@@ -9,7 +9,7 @@
 <body>
 <div layout:fragment="content">	
 	<!--Form to create a new user, no data validation for inputs currently-->
-	<form class="row g-3" action="#" th:action="@{submitRegistration}" th:object="${registrationModel}" method="post" style="width:75%; padding-top: 4%;">
+	<form class="row g-3" action="#" th:action="@{submitRegistration}" th:object="${userModel}" method="post" style="width:75%; padding-top: 4%;">
 		<!--User Entry for Name-->
 		<div class="row mb-3">
 			<label class="col-sm-2 col-form-label">Name:</label>
@@ -55,6 +55,7 @@
 				<a th:href="@{/}" class="btn btn-outline-secondary">Cancel</a></br>	
   			</div>
   		</div>
+  		<div align="center" th:if="${existingUserError}" style="color:red;">Username Already Exists!</div>
 	</form>	
 	</div>
 </body>

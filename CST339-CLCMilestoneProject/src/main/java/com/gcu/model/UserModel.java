@@ -5,13 +5,16 @@ import java.util.List;
 
 public class UserModel 
 { 
-    // Private Member variables
+	private int id; 
     private String firstName;
     private String lastName;
     private String email;
-    private String username;
     private String phone;
+    private String username;
     private String password;    
+    private String profilePic;
+    private boolean privacy; 
+    
     private List<PostModel> Posts = new ArrayList<PostModel>();
     
     /**
@@ -24,14 +27,17 @@ public class UserModel
      * @param phone
      * @param password
      */
-    public UserModel(String firstName, String lastName, String email, String username, String phone, String password)
+    public UserModel(int id, String firstName, String lastName, String email, String phone, String username, String password, String profilePic, boolean privacy)
     {
+    	this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.username = username;
 		this.phone = phone;
+		this.username = username;
 		this.password = password;
+		this.profilePic = profilePic;
+		this.privacy = privacy;
 	}
     
     /**
@@ -46,11 +52,10 @@ public class UserModel
     	this.password = password;
     }
      
+    public UserModel(){}
+    
     
 	// getters and setters for member variables of user model
-
-    public UserModel() {
-    }
 
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }

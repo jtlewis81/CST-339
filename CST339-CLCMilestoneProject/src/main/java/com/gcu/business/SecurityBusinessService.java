@@ -11,35 +11,35 @@
 
 package com.gcu.business;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
-import com.gcu.Cst339ClcMilestoneProjectApplication;
 import com.gcu.model.UserModel;
 
 
 @Service
 public class SecurityBusinessService
 {
-    public UserModel currentlyLoggedIn = null; 
+    public static UserModel currentlyLoggedIn; 
+    public static List<UserModel> users; 
     
 	/**
-	 * verify that the submitted username and password match an existing user
+	 * verify that the submitted Username and Password match an existing user
 	 * 
 	 * @param username
 	 * @param password
 	 * @return
 	 */
-	public boolean authenticate(String username, String password)
+	public boolean authenticate(List<UserModel> users, String username, String password)
 	{
+		this.users = users;
+		
 		// check for valid user
-    	for(int i = 0; i < Cst339ClcMilestoneProjectApplication.Users.size(); i++)
+    	for(UserModel user : users)
     	{
-    		// temp user data
-    		UserModel user = Cst339ClcMilestoneProjectApplication.Users.get(i);
-    		
-    		// if the username and password match an existing user
-    		if (user.getUsername().equals(username)
-				&& user.getPassword().equals(password) )
-    		{    			
+    		if (user.getUsername().equals(username) && user.getPassword().equals(password))
+    		{    		
+    			System.out.println("User successful login.");
     		    currentlyLoggedIn = user;     
     			return true;
     		}
