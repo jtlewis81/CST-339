@@ -39,7 +39,7 @@ public class SecurityBusinessService
     		if (user.getUsername().equals(username) && user.getPassword().equals(password))
     		{    		
     			System.out.println("User successful login.");
-    		    setCurrentlyLoggedIn(user);     
+    		    this.currentlyLoggedIn = user;     
     			return true;
     		}
     	}

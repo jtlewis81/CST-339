@@ -76,6 +76,7 @@ public class RegistrationController
         	System.out.println("An error occurred adding new user to Users table."); 
         
         // Set currently logged in user.
+        // need to add a way to update the current user's id after adding them to the db, before setting them as the currently logged in user. 
         securityService.setCurrentlyLoggedIn(userModel);
         
         mv.addObject("posts", registrationService.GetUserPosts(userModel));
