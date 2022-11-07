@@ -11,6 +11,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 
 import com.gcu.model.RegistrationModel;
+import com.gcu.model.UserModel;
 
 @Service
 public class RegistrationDAOService 
@@ -33,19 +34,19 @@ public class RegistrationDAOService
 	 * @param registering
 	 * @return
 	 */
-	public boolean InsertIntoUsersTable(RegistrationModel registering)
+	public boolean InsertIntoUsersTable(UserModel userModel)
 	{
 		String sql = "INSERT INTO users (FirstName, LastName, Phone, Email, Username, Password, ProfilePicture, Privacy) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		try
 		{
 			int rows = jdbcTemplateObject.update(
 				sql,
-				registering.getFirstName(),
-				registering.getLastName(),
-				registering.getPhone(),
-				registering.getEmail(),
-				registering.getUsername(),
-				registering.getPassword(),
+				userModel.getFirstName(),
+				userModel.getLastName(),
+				userModel.getPhone(),
+				userModel.getEmail(),
+				userModel.getUsername(),
+				userModel.getPassword(),
 				null,
 				false
 			);
@@ -76,5 +77,33 @@ public class RegistrationDAOService
 			e.printStackTrace();
 		}		
 		return usernames; 
+	}
+	
+	/**
+	 *  Get all UserModel entities from Users table.
+	 * @return
+	 */
+	public List<UserModel> getAllUsers(){
+		String sql = "SELECT * FROM users"; 
+		List<UserModel> users = new ArrayList<UserModel>();
+		try{
+			SqlRowSet record = jdbcTemplateObject.queryForRowSet(sql);
+			while (record.next()){
+				users.add(new UserModel(
+						record.getInt("ID"),
+						record.getString("FirstName"),
+						record.getString("LastName"),
+						record.getString("Phone"),
+						record.getString("Email"),
+						record.getString("Username"),
+						record.getString("Password"),
+						record.getString("ProfilePicture"),
+						record.getBoolean("Privacy")));
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}		
+		return users; 
 	}
 }

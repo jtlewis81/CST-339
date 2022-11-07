@@ -9,8 +9,8 @@ public class UserModel
     private String firstName;
     private String lastName;
     private String email;
-    private String username;
     private String phone;
+    private String username;
     private String password;    
     private String profilePic;
     private boolean privacy; 
@@ -27,17 +27,14 @@ public class UserModel
      * @param phone
      * @param password
      */
-    public UserModel(int id, String firstName, 
-    		String lastName, String email, 
-    		String username, String phone, 
-    		String password, String profilePic, boolean privacy)
+    public UserModel(int id, String firstName, String lastName, String email, String phone, String username, String password, String profilePic, boolean privacy)
     {
     	this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.username = username;
 		this.phone = phone;
+		this.username = username;
 		this.password = password;
 		this.profilePic = profilePic;
 		this.privacy = privacy;

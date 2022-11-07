@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.gcu.Cst339ClcMilestoneProjectApplication;
 import com.gcu.business.SecurityBusinessService;
 import com.gcu.data.RegistrationDAOService;
-import com.gcu.model.RegistrationModel;
 import com.gcu.model.UserModel;
 
 @Controller
@@ -45,7 +43,8 @@ public class RegistrationController
         model.addAttribute("userModel", new UserModel());
         model.addAttribute("title", "Registration");       
         model.addAttribute("pageName", "Create Account");
-        model.addAttribute("registrationModel", new RegistrationModel());
+//        model.addAttribute("registrationModel", new RegistrationModel());
+        
         return "registration";
     }
     
@@ -55,12 +54,12 @@ public class RegistrationController
      * @return
      */
     @PostMapping("/submitRegistration")
-    public ModelAndView submitRegistration(@Valid RegistrationModel registrationModel, BindingResult bindingResult, Model model) 
+    public ModelAndView submitRegistration(@Valid UserModel userModel, BindingResult bindingResult, Model model) 
     {      
         ModelAndView mv = new ModelAndView(); 
         
         // Check if Username already exists.
-        boolean existingUserError = usernames.contains(registrationModel.getUsername());
+        boolean existingUserError = usernames.contains(userModel.getUsername());
         
         if (bindingResult.hasErrors() || existingUserError) 
         {
@@ -74,16 +73,13 @@ public class RegistrationController
         }
 
         // Add new User to list of valid login credentials. 
-        if(registrationService.InsertIntoUsersTable(registrationModel))
+        if(registrationService.InsertIntoUsersTable(userModel))
         	System.out.println("New user successfully added to Users table!"); 
         else
         	System.out.println("An error occurred adding new user to Users table."); 
         
-        UserModel user = new UserModel(registrationModel.getUsername(), registrationModel.getPassword());   
-        
-        Cst339ClcMilestoneProjectApplication.Users.add(user); 
-        
-        securityService.currentlyLoggedIn = user;
+        // Set currently logged in user.
+        securityService.currentlyLoggedIn = userModel;
         
         mv.addObject("posts", securityService.currentlyLoggedIn.getPosts());
         mv.addObject("title", "Home");
