@@ -75,7 +75,7 @@ public class LoginController
     		model.addAttribute("title", "Home");
 			model.addAttribute("user", loginModel.getUsername());
             model.addAttribute("pageName", "Home");
-            model.addAttribute("posts", SecurityBusinessService.currentlyLoggedIn.getPosts());
+            model.addAttribute("posts", registrationService.GetUserPosts(securityService.currentlyLoggedIn));
             
 			return "home";
     	}

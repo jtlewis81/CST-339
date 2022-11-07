@@ -59,7 +59,7 @@
 			<thead>
 				<tr>
 					<th style="text-align:center">Username</th>
-					<th style="text-align:center">Content</th>
+					<th style="text-align:center">Caption</th>
 					<th style="text-align:center">Timestamp</th>
 				</tr>
 			</thead>
@@ -68,8 +68,8 @@
 					<td style="text-align:center" colspan="4">No Posts Exist.</td>
 				</tr>
 				<tr th:each="post : ${posts}">
-					<td style="text-align:center"><h5 th:text="${post.getUsername()}">?</h5></td>
-					<td style="text-align:center"><h5 th:text="${post.getContent()}">?</h5></td>
+					<td style="text-align:center"><h5 th:text="${post.Username}">?</h5></td>
+					<td style="text-align:center"><h5 th:text="${post.getCaption()}">?</h5></td>
 					<td style="text-align:center"><h5 th:text="${post.getTimestamp}">?</h5></td>
 				</tr>
 			</tbody>

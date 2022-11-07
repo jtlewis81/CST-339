@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>    
 	<style>
-		#Content {
+		#Caption {
 			width:700px;
 			min-height:200px;
 			max-height:400px; 
@@ -27,7 +27,7 @@
     <div layout:fragment="content" style="padding-top:1%;">	    	
    	 	<div id="PostBox">
 			<form action="#" th:action="@{post}" th:object="${postModel}" method="post">
-				<div><textarea type="text" th:field="*{Content}" id="Content" required></textarea></div>
+				<div><textarea type="text" th:field="*{Caption}" id="Caption" required></textarea></div>
 				<div><button type="submit" id="SubmitBtn">Submit Post</button></div>
 			</form>
 		</div>

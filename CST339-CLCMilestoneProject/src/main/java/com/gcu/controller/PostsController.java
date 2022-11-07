@@ -1,6 +1,7 @@
 package com.gcu.controller;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.validation.Valid;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.gcu.business.SecurityBusinessService;
+import com.gcu.data.RegistrationDAOService;
 import com.gcu.model.PostModel;
 
 @Controller
@@ -23,11 +25,14 @@ public class PostsController
     @Autowired
     private SecurityBusinessService securityService;
     
+    @Autowired 
+    private RegistrationDAOService registrationService; 
+    
     /**
      * Display 
      * 
      * @param model
-     * @return
+     * @returns
      */
     @GetMapping("/")
     public String display(Model model) 
@@ -42,21 +47,24 @@ public class PostsController
     @PostMapping("/post")
     public ModelAndView addPost(@Valid PostModel postModel, BindingResult bindingResult, Model model) 
     {        
+    	LocalDateTime timestamp = LocalDateTime.now();   
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a, M-dd-yyyy");
+    	
         // Set PostModel properties. 
-        LocalDateTime timestamp = LocalDateTime.now();         
-        postModel.setTimestamp(timestamp); 
-        postModel.setUsername(securityService.currentlyLoggedIn.getUsername());
+    	postModel.setTitle("n/a"); 
+    	postModel.setImage("n/a");
+        postModel.setTimestamp(timestamp.format(formatter)); 
+        postModel.setUserId(securityService.currentlyLoggedIn.getId());
+        postModel.setFriendsId(-1); 
         
-        // Print console debugging logs. 
-        System.out.println("Username: " + postModel.getUsername());
-        System.out.println("Content:\n" + postModel.getContent());
-        System.out.println("Timestamp: " + postModel.getTimestamp());
+        if (registrationService.InsertIntoPostsTable(postModel))
+    		System.out.println("Post was successfully added to Posts table!");
+        else 
+        	System.out.println("An error occurred inserting new Post into Posts table.");
 
-        // Add new User to list of valid login credentials. 
-        securityService.currentlyLoggedIn.addPost(postModel);
 
         ModelAndView homeView = new ModelAndView(); 
-        homeView.addObject("posts", securityService.currentlyLoggedIn.getPosts());
+        homeView.addObject("posts", registrationService.GetUserPosts(securityService.currentlyLoggedIn));
         homeView.addObject("pageName", "Home");
         homeView.setViewName("home");
         
