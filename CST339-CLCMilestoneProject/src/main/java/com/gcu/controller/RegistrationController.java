@@ -81,7 +81,7 @@ public class RegistrationController
         // Set currently logged in user.
         securityService.currentlyLoggedIn = userModel;
         
-        mv.addObject("posts", securityService.currentlyLoggedIn.getPosts());
+        mv.addObject("posts", registrationService.GetUserPosts(userModel));
         mv.addObject("title", "Home");
         mv.addObject("pageName", "Home");
         mv.setViewName("home");
