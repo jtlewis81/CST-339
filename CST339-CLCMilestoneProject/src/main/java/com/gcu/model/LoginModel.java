@@ -1,14 +1,3 @@
-/**
- *  Jamie Lewis
- *  CST-339
- *  Last Update: 10/30/22
- *  
- *  CLC Milestone Project
- *   
- *  Login Module - LoginModel
- * 
- */
-
 package com.gcu.model;
 
 public class LoginModel {

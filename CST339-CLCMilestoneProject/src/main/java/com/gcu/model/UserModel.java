@@ -51,7 +51,10 @@ public class UserModel
     	this.username = username;
     	this.password = password;
     }
-     
+    
+    /**
+     * default constructor
+     */
     public UserModel(){}
     
     
@@ -81,4 +84,10 @@ public class UserModel
     public List<PostModel> getPosts() { return Posts; }
     public void setPosts(List<PostModel> posts) { this.Posts = posts; }
     public void addPost(PostModel postModel) { getPosts().add(0, postModel); }
+
+	public String getProfilePic() { return profilePic; }
+	public void setProfilePic(String profilePic) { this.profilePic = profilePic; }
+
+	public boolean getPrivacy() { return privacy; }
+	public void setPrivacy(boolean privacy) { this.privacy = privacy; }
 }

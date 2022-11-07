@@ -24,8 +24,8 @@ public class HomeController
     {
         model.addAttribute("title", "Home");
         model.addAttribute("pageName", "Home");
-        model.addAttribute("posts", registrationService.GetUserPosts(service.currentlyLoggedIn)); 
-        model.addAttribute("username", service.currentlyLoggedIn.getUsername());
+        model.addAttribute("posts", registrationService.GetUserPosts(service.getCurrentlyLoggedIn())); 
+        model.addAttribute("username", service.getCurrentlyLoggedIn().getUsername());
         
         return "home";
     }

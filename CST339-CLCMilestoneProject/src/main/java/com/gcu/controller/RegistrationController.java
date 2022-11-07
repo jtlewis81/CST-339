@@ -1,9 +1,7 @@
 package com.gcu.controller;
 
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.gcu.business.SecurityBusinessService;
 import com.gcu.data.RegistrationDAOService;
 import com.gcu.model.UserModel;
@@ -79,7 +76,7 @@ public class RegistrationController
         	System.out.println("An error occurred adding new user to Users table."); 
         
         // Set currently logged in user.
-        securityService.currentlyLoggedIn = userModel;
+        securityService.setCurrentlyLoggedIn(userModel);
         
         mv.addObject("posts", registrationService.GetUserPosts(userModel));
         mv.addObject("title", "Home");

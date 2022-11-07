@@ -2,9 +2,7 @@ package com.gcu.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.gcu.business.SecurityBusinessService;
 import com.gcu.data.RegistrationDAOService;
 import com.gcu.model.PostModel;
@@ -54,7 +51,7 @@ public class PostsController
     	postModel.setTitle("n/a"); 
     	postModel.setImage("n/a");
         postModel.setTimestamp(timestamp.format(formatter)); 
-        postModel.setUserId(securityService.currentlyLoggedIn.getId());
+        postModel.setUserId(securityService.getCurrentlyLoggedIn().getId());
         postModel.setFriendsId(-1); 
         
         if (registrationService.InsertIntoPostsTable(postModel))
@@ -64,7 +61,7 @@ public class PostsController
 
 
         ModelAndView homeView = new ModelAndView(); 
-        homeView.addObject("posts", registrationService.GetUserPosts(securityService.currentlyLoggedIn));
+        homeView.addObject("posts", registrationService.GetUserPosts(securityService.getCurrentlyLoggedIn()));
         homeView.addObject("pageName", "Home");
         homeView.setViewName("home");
         
