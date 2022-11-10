@@ -40,7 +40,6 @@ public class RegistrationController
         model.addAttribute("userModel", new UserModel());
         model.addAttribute("title", "Registration");       
         model.addAttribute("pageName", "Create Account");
-//        model.addAttribute("registrationModel", new RegistrationModel());
         
         return "registration";
     }
@@ -70,15 +69,16 @@ public class RegistrationController
         }
 
         // Add new User to list of valid login credentials. 
-        if(registrationService.InsertIntoUsersTable(userModel))
+        UserModel insertionResult = registrationService.InsertIntoUsersTable(userModel).get(1);
+        if (insertionResult != null)
+        {
         	System.out.println("New user successfully added to Users table!"); 
-        else
-        	System.out.println("An error occurred adding new user to Users table."); 
+        	System.out.println("ID = " + insertionResult.getId() + ", Username = " + insertionResult.getUsername());
+        	securityService.setCurrentlyLoggedIn(insertionResult);
+        }
         
         // Set currently logged in user.
-        // need to add a way to update the current user's id after adding them to the db, before setting them as the currently logged in user. 
-        securityService.setCurrentlyLoggedIn(userModel);
-        
+        mv.addObject("posts", registrationService.GetUserPosts(securityService.getCurrentlyLoggedIn()));
         mv.addObject("posts", registrationService.GetUserPosts(userModel));
         mv.addObject("title", "Home");
         mv.addObject("pageName", "Home");
