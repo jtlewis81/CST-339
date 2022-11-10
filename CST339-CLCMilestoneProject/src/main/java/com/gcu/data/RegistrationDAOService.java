@@ -2,6 +2,7 @@ package com.gcu.data;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,9 @@ public class RegistrationDAOService
 	 * @param registering
 	 * @return
 	 */
-	public boolean InsertIntoUsersTable(UserModel userModel)
+	public Hashtable<Integer, UserModel> InsertIntoUsersTable(UserModel userModel)
 	{
+		boolean insertSuccess = false; 
 		String sql = "INSERT INTO users (FirstName, LastName, Phone, Email, Username, Password, ProfilePicture, Privacy) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		try
 		{
@@ -54,13 +56,20 @@ public class RegistrationDAOService
 				null,
 				false
 			);
-			return rows == 1 ? true: false;
+			insertSuccess = (rows == 1) ? true : false;
+			
+			if (insertSuccess)
+				return new Hashtable<Integer, UserModel>(){
+					{ put(1, GetUserMetadata(userModel.getUsername())); }
+				};
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		return false; 
+		return new Hashtable<Integer, UserModel>(){
+			{ put(0, null); }
+		};
 	}
 	
 	/**
@@ -171,4 +180,29 @@ public class RegistrationDAOService
 		return posts; 
 	}
 	
+	
+	public UserModel GetUserMetadata(String username)
+	{
+		String sql = "SELECT * FROM users WHERE Username = '" + username + "'"; 
+		try {
+			SqlRowSet searchResult = jdbcTemplateObject.queryForRowSet(sql);
+			while (searchResult.next())
+			{
+				return new UserModel(
+						searchResult.getInt("ID"),
+						searchResult.getString("FirstName"),
+						searchResult.getString("LastName"),
+						searchResult.getString("Phone"),
+						searchResult.getString("Email"),
+						searchResult.getString("Username"),
+						searchResult.getString("Password"),
+						searchResult.getString("ProfilePicture"),
+						searchResult.getBoolean("Privacy"));
+			}				
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null; 
+	}
 }

@@ -55,27 +55,26 @@
 	<br>
 	
 	<div id="Posts">
-		<div style="width:56%; margin-bottom:3%;">
-			<div class="col container">
-				<div class="row" th:if="${posts.empty}">
-					<h4 style="text-align:center" colspan="4">No Posts Exist.</h4>
-				</div>
-				<div class="container" th:each="post : ${posts}" style="margin-bottom: 4%; border: 3px solid black; border-radius:8px;">
-					<div class="row" style="background-color:#0d6efd;">
-						<div class="col"></div>
-						<div class="col">
-							<h4 style="color:white;" th:text="${post.Username}">Username</h4>
-						</div>
-						<div class="col">
-							<h5 style="color:silver;" th:text="${post.getTimestamp()}">Timestamp</h5>
-						</div>
-					</div>
-					<div class="row justify-content-center">
-						<h4 th:text="${post.getCaption()}">Caption</div>
-					</div>
-				</div>
-			</div>
-		</div>		
+		<table style="width:56%; margin-bottom:3%;">
+			<thead>
+				<tr>
+					<th style="text-align:center">Username</th>
+					<th style="text-align:center">Caption</th>
+					<th style="text-align:center">Timestamp</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${posts.empty}">
+					<td style="text-align:center" colspan="4">No Posts Exist.</td>
+				</tr>
+				<tr th:each="post : ${posts}">
+					<td style="text-align:center"><h5 th:text="${post.Username}">?</h5></td>
+					<td style="text-align:center"><h5 th:text="${post.getCaption()}">?</h5></td>
+					<td style="text-align:center"><h5 th:text="${post.getTimestamp}">?</h5></td>
+				</tr>
+			</tbody>
+		</table>		
+		<br>
 	</div>
 </div>
 </body>

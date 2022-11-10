@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" layout:decorate="layouts/loginRegistrationTemplate">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FriendZone</title>
+</head>
+	<body>
+	
+		<!--Displays the body content of the login form-->
+		<div layout:fragment="content">
+			<!--Pull in image from internet-->
+			<img style="padding-top: 4%; height: 300px; width:auto;" th:src="@{https://ih1.redbubble.net/image.854650454.0142/pp,840x830-pad,1000x1000,f8f8f8.u3.jpg}"/><br/><br/>
+			<h1 style="color: Black;">Log In</h1>
+			<!--Form to take the user to the home page when submitted and info is validated-->
+			<form class="row g-3" action="#" th:action="@{doLogin}" th:object="${loginModel}" method="post">
+			
+				<!--Username entry-->
+				<div class="col-md-10">
+					<label for="username" class="col-sm-2 col-form-label">User Name:</label>
+					<input type="text" th:field="*{username}" id="username" required>
+				</div>
+				<!--Password Entry-->
+				<div class="col-md-10">
+					<label for="password" class="col-sm-2 col-form-label">Password:</label>
+					<input type="password" th:field="*{password}" id="password" required>
+				</div>
+				
+				<!--Error Message if invalid-->
+				<div class="col-10-md">
+					<span style="color:red" th:text="${invalidError}"></span>
+				</div>
+				
+				<!--Buttons to Log in or reset password-->
+				<div class="row">
+					<div class="col-sm-5"></div>					
+					<div class="col-sm-1">
+						<button type="submit" class="btn btn-primary">Log In</button>
+					</div>
+					<div class="col-sm-1">
+						<a style="color:blue; text-decoration: none;" th:href="@{/forgot-password/}">Forgot Password?</a>
+					</div>
+					<div class="col-sm-5"></div>
+				</div>
+			</form><br/>
+			<!--Link to the registration form-->
+			<a th:href="@{/registration/}" class="btn btn-outline-secondary">Register a New Profile</a><br/>
+		</div>
+	</body>
+</html>

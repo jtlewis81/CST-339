@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>FriendZone</title>
+</head>
+
+<body>
+	<div th:fragment="header">
+		<!--Bootstrap Navbar-->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container-fluid">
+				<div class="row" style="width:100%;">
+					<div class="col align-self-center">
+						<!--Collapse button-->
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+							data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+							aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<!--Section collapsed into hamburger for responsiveness-->
+						<div class="collapse navbar-collapse" id="navbarNav">
+							<ul class="navbar-nav">
+								<!--Navigates to Home-->
+								<li class="nav-item">
+									<a class="nav-link active" aria-current="page" th:href="@{/home/}">Home</a>
+								</li>
+								<!--Navigates to your own profile-->
+								<li class="nav-item">
+									<a class="nav-link" th:href="@{/own-account/}">Profile</a>
+								</li>
+								<!--Navigates to your friends list page-->
+								<li class="nav-item">
+									<a class="nav-link" th:href="@{/friends/}">Friends</a>
+								</li>
+								<!--Navigates back to log in-->
+								<li class="nav-item">
+									<a class="nav-link" th:href="@{/}">Log Out</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--Page header to navigate back to home when clicked-->
+					<div class="col">
+						<div style="flex-direction:column;" class="navbar-collapse">
+							<div class="row">
+								<a class="navbar-brand" th:href="@{/home/}"
+									style="font-style:italic; font-size: 1.5vh;">FriendZone</a>
+							</div>
+							<!--Page name dynamically created in controller-->
+							<div class="row" style="padding-top: 5%;">
+								<h1 th:text="${pageName}" style="color:white; font-weight: bold;">Page name</h1>
+							</div>
+						</div>
+					</div>
+					<!--Image thumbnail of user's profile picture to take them to their own profile-->
+					<div class="col">
+						<div class="navbar-collapse col">
+							<ul class="navbar-nav ms-auto">
+								<a th:href="@{/own-account/}"><img class="img-thumbnail img-fluid" alt="Your Profile"
+										th:src="@{/images/Avatar.jpg}" /></a>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	</nav>
+	</div>
+
+	<h2 th:text="${title}">Default message text</h2><br />
+	</div>
+
+	<!--Copyright footer-->
+	<div th:fragment="footer">
+		<h5 style="color:blue; text-align: center; position:fixed; bottom: 0; width: 100%;">Copyright 2022 GCU</h5>
+	</div>
+</body>
+
+</html>
