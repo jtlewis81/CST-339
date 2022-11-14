@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Service;
 import com.gcu.business.SecurityBusinessService;
+import com.gcu.model.DeletePostModel;
 import com.gcu.model.PostModel;
 import com.gcu.model.UserModel;
 
@@ -27,11 +28,38 @@ public class RegistrationDAOService
 	@Autowired
 	private SecurityBusinessService securityService;
 	
+	public DeletePostModel deleteModel = new DeletePostModel(0);
+	
 	// Constructor
 	public RegistrationDAOService(DataSource dataSource)
 	{
 		this.dataSource = dataSource;
 		this.jdbcTemplateObject = new JdbcTemplate(dataSource);
+	}
+	
+	/**
+	 * Delete a user's post by its ID from the mysql database 'userposts' table.
+	 * @param postId
+	 * @return
+	 */
+	public List<PostModel> DeletePostById(int postId)
+	{
+		String sql = "DELETE FROM userposts WHERE ID = " + postId;
+		
+		try {
+			int rows = jdbcTemplateObject.update(sql);
+			
+			if (rows == 1)
+				System.out.println("DELETE SUCCESS");
+			else 
+				System.out.println("DELETE FAILURE");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+				
+		return GetUserPosts(securityService.getCurrentlyLoggedIn());
 	}
 	
 	/**

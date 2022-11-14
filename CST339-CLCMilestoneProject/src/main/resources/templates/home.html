@@ -12,6 +12,26 @@
     	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 	<script src="https://kit.fontawesome.com/8a1db32e51.js" crossorigin="anonymous"></script>
     
+    <style>
+    	#DeletePostForm {
+			display:flex;
+			flex-wrap:nowrap;
+			border:1px solid black;
+			margin:0% 1% 2% 1%;
+			justify-content:flex-start;
+			width:fit-content;
+			border-radius:8px;
+		}
+    	#DeletePostForm section {
+			width:fit-content;
+			padding:1%;
+		}
+		#DeletePostForm #DeletePostId {
+			width:50%;
+			text-align:center;
+		}
+    </style>
+    
 </head>
 <body>
 <div layout:fragment="content">
@@ -55,16 +75,26 @@
 	</div>
 	<br>
 	
+
+	<div id="DeletePostForm" th:if="${!posts.empty}">
+		<form action="#" th:action="@{delete}" th:object="${deleteModel}" method="post">
+				<section>Delete a Post by it's ID: </section>
+				<section><input type="text" th:field="*{Id}" id="DeletePostId" required/></section>			
+				<section><button type="submit" class="btn btn-primary"/>Submit</section>
+		</form>
+	</div>
+	
+	
 	<div id="Posts">
 		<div style="width:85%; margin-bottom:3%;">
 			<div class="col container">
 				<div class="row" th:if="${posts.empty}">
 					<h4 style="text-align:center" colspan="4">No Posts Exist.</h4>
 				</div>
-				<div class="container" th:each="post : ${posts}" style="margin-bottom: 4%; border: 3px solid black;">
-					<div class="row" style="background-color:blue;">
+				<div class="container" th:each="post : ${posts}" style="margin-bottom: 4%; border: 3px solid black; border-radius:8px;">
+					<div class="row" style="background-color:#0d6efd;">
 						<div class="col-4">
-							<h5 style="color:darkgrey; font-size:2vh;" th:text="${post.getTimestamp()}">Timestamp</h5>
+							<h5 style="color:silver; font-size:2vh;" th:text="${post.getTimestamp()}">Timestamp</h5>
 						</div>
 						<div class="col-4">
 							<h4 style="color:white;" th:text="${post.Username}">Username</h4>
@@ -73,7 +103,7 @@
 							<a href="updatePost.html" class="btn"><i class="fa-regular fa-pen-to-square" style="height:80%; width: auto;"></i></a>
 						</div>
 						<div class="col-2">
-							<btn type="button" class="btn" onClick=""><i class="fa-solid fa-trash" style="height:80%; width: auto;"></i></btn>
+							<button type="submit" class="btn"><i class="fa-solid" style="height:80%; width:auto; color:white;;" th:text="'Id: '+${post.getId()}"></i></button>
 						</div>
 					</div>
 					<div class="row justify-content-center">
@@ -83,6 +113,8 @@
 			</div>
 		</div>		
 	</div>
+	
+	
 </div>
 </body>
 </html>

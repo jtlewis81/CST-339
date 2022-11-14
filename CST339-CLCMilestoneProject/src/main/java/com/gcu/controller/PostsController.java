@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.gcu.business.SecurityBusinessService;
 import com.gcu.data.RegistrationDAOService;
+import com.gcu.model.DeletePostModel;
 import com.gcu.model.PostModel;
 
 @Controller
@@ -60,11 +61,26 @@ public class PostsController
         	System.out.println("An error occurred inserting new Post into Posts table.");
 
 
-        ModelAndView homeView = new ModelAndView(); 
-        homeView.addObject("posts", registrationService.GetUserPosts(securityService.getCurrentlyLoggedIn()));
-        homeView.addObject("pageName", "Home");
-        homeView.setViewName("home");
+        ModelAndView mv = new ModelAndView(); 
+        mv.addObject("posts", registrationService.GetUserPosts(securityService.getCurrentlyLoggedIn()));
+        mv.addObject("pageName", "Home");
+        mv.addObject("deleteModel", registrationService.deleteModel);
+        mv.setViewName("home");
         
-        return homeView;
+        return mv;
+    }
+    
+    @PostMapping("/delete")
+    public ModelAndView delete(@Valid DeletePostModel deleteModel, BindingResult bindingResult, Model model)
+    {        
+    	System.out.print("Inside PostsController deletePost(" + deleteModel.getId() + ") ");
+    	
+    	ModelAndView mv = new ModelAndView(); 		
+    	mv.addObject("title", "Home");
+    	mv.addObject("pageName", "Home");
+		mv.addObject("posts", registrationService.DeletePostById(deleteModel.getId()));
+		mv.addObject("deleteModel", deleteModel);
+        mv.setViewName("home");        
+        return mv;
     }
 }

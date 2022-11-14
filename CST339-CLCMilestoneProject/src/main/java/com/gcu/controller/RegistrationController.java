@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.gcu.business.SecurityBusinessService;
 import com.gcu.data.RegistrationDAOService;
+import com.gcu.model.DeletePostModel;
 import com.gcu.model.UserModel;
 
 @Controller
@@ -76,13 +77,26 @@ public class RegistrationController
         	System.out.println("ID = " + insertionResult.getId() + ", Username = " + insertionResult.getUsername());
         	securityService.setCurrentlyLoggedIn(insertionResult);
         }
-        
-        // Set currently logged in user.
+
         mv.addObject("posts", registrationService.GetUserPosts(securityService.getCurrentlyLoggedIn()));
-        mv.addObject("posts", registrationService.GetUserPosts(userModel));
         mv.addObject("title", "Home");
         mv.addObject("pageName", "Home");
+        mv.addObject("deleteModel", registrationService.deleteModel);
         mv.setViewName("home");
         return mv;
     }    
+    
+    @PostMapping("/delete")
+    public ModelAndView delete(@Valid DeletePostModel deleteModel, BindingResult bindingResult, Model model)
+    {        
+    	System.out.print("Inside RegistrationController deletePost(" + deleteModel.getId() + ") ");
+    	
+    	ModelAndView mv = new ModelAndView(); 		
+    	mv.addObject("title", "Home");
+    	mv.addObject("pageName", "Home");
+		mv.addObject("posts", registrationService.DeletePostById(deleteModel.getId()));
+		mv.addObject("deleteModel", deleteModel);
+        mv.setViewName("home");        
+        return mv;
+    }
 }
