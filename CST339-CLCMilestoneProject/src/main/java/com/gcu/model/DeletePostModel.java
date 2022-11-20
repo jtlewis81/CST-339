@@ -1,16 +1,16 @@
 package com.gcu.model;
 
-public class DeletePostModel 
+public class DeletePostModel
 {
-	private int Id; 
+	private int id; 
 	
 	public DeletePostModel() {}
 	
 	public DeletePostModel(int id) {
-		Id = id;
+		this.id = id;
 	}
 	
-	public int getId() { return Id; }
+	public int getId() { return id; }
 	
-	public void setId(int id) { Id = id; }
+	public void setId(int id) { this.id = id; }
 }

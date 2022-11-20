@@ -1,33 +1,47 @@
-package com.gcu.model;
+package com.gcu.data.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
-public class UserModel 
-{ 
+@Table("USERS")
+public class UserEntity 
+{
+	// VARIABLES
+	
+	@Id
 	private int id; 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String username;
-    private String password;    
-    private String profilePic;
-    private boolean privacy; 
+    @Column("FirstName")
+	private String firstName;
+    @Column("LastName")
+	private String lastName;
+    @Column("Email")
+	private String email;
+    @Column("Phone")
+	private String phone;
+    @Column("Username")
+	private String username;
+    @Column("Password")
+	private String password;    
+    @Column("ProfilePicture")
+	private String profilePic;
     
-    private List<PostModel> Posts = new ArrayList<PostModel>();
+
+    // CONSTRUCTORS    
     
     /**
      * full Constructor
      * 
+     * @param id
      * @param firstName
      * @param lastName
      * @param email
-     * @param username
      * @param phone
+     * @param username
      * @param password
+     * @param profilePic
      */
-    public UserModel(int id, String firstName, String lastName, String email, String phone, String username, String password, String profilePic, boolean privacy)
+    public UserEntity(int id, String firstName, String lastName, String email, String phone, String username, String password, String profilePic)
     {
     	this.id = id;
 		this.firstName = firstName;
@@ -37,16 +51,15 @@ public class UserModel
 		this.username = username;
 		this.password = password;
 		this.profilePic = profilePic;
-		this.privacy = privacy;
 	}
     
     /**
-     * minimal UserModel
+     * minimal UserEntity
      * 
      * @param username
      * @param password
      */
-    public UserModel(String username, String password)
+    public UserEntity(String username, String password)
     {
     	this.username = username;
     	this.password = password;
@@ -55,7 +68,7 @@ public class UserModel
     /**
      * default constructor
      */
-    public UserModel(){}
+    public UserEntity(){}
     
     
 	// getters and setters for member variables of user model
@@ -81,13 +94,6 @@ public class UserModel
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
     
-    public List<PostModel> getPosts() { return Posts; }
-    public void setPosts(List<PostModel> posts) { this.Posts = posts; }
-    public void addPost(PostModel postModel) { getPosts().add(0, postModel); }
-
 	public String getProfilePic() { return profilePic; }
 	public void setProfilePic(String profilePic) { this.profilePic = profilePic; }
-
-	public boolean getPrivacy() { return privacy; }
-	public void setPrivacy(boolean privacy) { this.privacy = privacy; }
 }

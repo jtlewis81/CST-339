@@ -26,7 +26,7 @@
 							<ul class="navbar-nav">
 								<!--Navigates to Home-->
 								<li class="nav-item">
-									<a class="nav-link active" aria-current="page" th:href="@{/home/}">Home</a>
+									<a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
 								</li>
 								<!--Navigates to your own profile-->
 								<li class="nav-item">
@@ -38,7 +38,9 @@
 								</li>
 								<!--Navigates back to log in-->
 								<li class="nav-item">
-									<a class="nav-link" th:href="@{/}">Log Out</a>
+									<form th:action="@{/logout}" method="POST">
+										<input class="nav-link" style="border: none; background-color: transparent;" type="submit" value="Log Out"/>
+									</form>
 								</li>
 							</ul>
 						</div>
@@ -63,6 +65,7 @@
 								<a th:href="@{/own-account/}"><img class="img-thumbnail img-fluid" alt="Your Profile"
 										th:src="@{/images/Avatar.jpg}" /></a>
 							</ul>
+							<span th:text="${username}">Default Text</span>
 						</div>
 					</div>
 				</div>

@@ -11,39 +11,40 @@
 		<!--Displays the body content of the login form-->
 		<div layout:fragment="content">
 			<!--Pull in image from internet-->
-			<img style="padding-top: 4%; height: 300px; width:auto;" th:src="@{https://ih1.redbubble.net/image.854650454.0142/pp,840x830-pad,1000x1000,f8f8f8.u3.jpg}"/><br/><br/>
+			<img style="padding-top: 4%; height: 300px; width:auto;" th:src="@{/images/logo.jpg}"/><br/><br/>
 			<h1 style="color: Black;">Log In</h1>
-			<!--Form to take the user to the home page when submitted and info is validated-->
-			<form class="row g-3" action="#" th:action="@{doLogin}" th:object="${loginModel}" method="post">
 			
+			<!--Error Message if invalid-->
+			<div class="col-10-md" th:if="${param.error}">
+				<span style="color:red">Invalid Username or Password.</span>
+			</div>
+			
+			<!--Form to take the user to the home page when submitted and info is validated-->
+			<form class="row g-3" th:action="@{/}" method="post">
 				<!--Username entry-->
-				<div class="col-md-10">
-					<label for="username" class="col-sm-2 col-form-label">User Name:</label>
-					<input type="text" th:field="*{username}" id="username" required>
+				<div class="col-md-12">
+					<label for="username" class="col-sm-2 col-md-1 col-form-label">User Name:</label>
+					<input type="text" name="username" id="username" placeholder="UserName" required>
 				</div>
 				<!--Password Entry-->
-				<div class="col-md-10">
-					<label for="password" class="col-sm-2 col-form-label">Password:</label>
-					<input type="password" th:field="*{password}" id="password" required>
+				<div class="col-md-12">
+					<label for="password" class="col-sm-2 col-md-1 col-form-label">Password:</label>
+					<input type="password" name="password" id="password" placeholder="Password" required>
 				</div>
-				
-				<!--Error Message if invalid-->
-				<div class="col-10-md">
-					<span style="color:red" th:text="${invalidError}"></span>
-				</div>
-				
-				<!--Buttons to Log in or reset password-->
-				<div class="row">
-					<div class="col-sm-5"></div>					
-					<div class="col-sm-1" style="width:fit-content;">
-						<button type="submit" class="btn btn-primary">Log In</button>
+				<!--Button to Log In -->
+				<div class="col-md-12">					
+					<div class="col-sm-2 col-sm-2" style="width:fit-content; text-align: center;">
+						<button type="submit" class="btn btn-primary" width=150px>Log In</button>
 					</div>
-					<div class="col-sm-1">
-						<a style="color:blue; text-decoration: none;" th:href="@{/forgot-password/}">Forgot Password?</a>
-					</div>
-					<div class="col-sm-5"></div>
 				</div>
 			</form><br/>
+			
+			<!-- Forgtot Password link (temporarily hidden - non-funtioning) -->
+			<div class="col-sm-1" style="display:none">
+				<a style="color:blue; text-decoration: none;" th:href="@{/forgot-password/}">Forgot Password?</a>
+			</div>
+			
+			
 			<!--Link to the registration form-->
 			<a th:href="@{/registration/}" class="btn btn-outline-secondary">Register a New Profile</a><br/>
 		</div>

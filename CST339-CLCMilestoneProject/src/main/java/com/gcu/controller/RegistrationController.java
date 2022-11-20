@@ -1,6 +1,5 @@
 package com.gcu.controller;
 
-import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,21 +9,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import com.gcu.business.SecurityBusinessService;
-import com.gcu.data.RegistrationDAOService;
-import com.gcu.model.DeletePostModel;
-import com.gcu.model.UserModel;
+import com.gcu.business.PostBusinessService;
+import com.gcu.business.UserBusinessService;
+import com.gcu.data.entity.UserEntity;
 
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController 
 {
-    @Autowired
-    public SecurityBusinessService securityService;
-    @Autowired
-    private RegistrationDAOService registrationService;
-    
-    private static List<String> usernames; 
+	 @Autowired
+	 private UserBusinessService userService;
+	 @Autowired
+	 private PostBusinessService postService;
     
 	/**
 	 * Display Registration page
@@ -34,13 +30,10 @@ public class RegistrationController
 	 */
     @GetMapping("/")
     public String displayRegistration(Model model) 
-    { 
-    	// Retrieve all existing Usernames from Users database table. 
-    	usernames = registrationService.getAllUsernames(); 
-    	
-        model.addAttribute("userModel", new UserModel());
+    {
         model.addAttribute("title", "Registration");       
         model.addAttribute("pageName", "Create Account");
+        model.addAttribute("userEntity", new UserEntity());
         
         return "registration";
     }
@@ -51,12 +44,16 @@ public class RegistrationController
      * @return
      */
     @PostMapping("/submitRegistration")
-    public ModelAndView submitRegistration(@Valid UserModel userModel, BindingResult bindingResult, Model model) 
+    public ModelAndView submitRegistration(@Valid UserEntity userEntity, BindingResult bindingResult, Model model) 
     {      
         ModelAndView mv = new ModelAndView(); 
         
         // Check if Username already exists.
-        boolean existingUserError = usernames.contains(userModel.getUsername());
+        boolean existingUserError = false;
+        if (userService.getUserByUsername(userEntity.getUsername()) != null)
+        {
+        	existingUserError = true;
+        }
         
         if (bindingResult.hasErrors() || existingUserError) 
         {
@@ -70,33 +67,19 @@ public class RegistrationController
         }
 
         // Add new User to list of valid login credentials. 
-        UserModel insertionResult = registrationService.InsertIntoUsersTable(userModel).get(1);
-        if (insertionResult != null)
+        boolean insertionResult = userService.addUser(userEntity);
+        UserEntity newUser = null;
+        if (insertionResult)
         {
+            newUser = userService.getUserByUsername(userEntity.getUsername());
         	System.out.println("New user successfully added to Users table!"); 
-        	System.out.println("ID = " + insertionResult.getId() + ", Username = " + insertionResult.getUsername());
-        	securityService.setCurrentlyLoggedIn(insertionResult);
+        	System.out.println("ID = " + newUser.getId() + ", Username = " + newUser.getUsername());
         }
-
-        mv.addObject("posts", registrationService.GetUserPosts(securityService.getCurrentlyLoggedIn()));
+        mv.addObject("user", newUser);
+        mv.addObject("posts", postService.getAllPostsByUser(newUser));
         mv.addObject("title", "Home");
         mv.addObject("pageName", "Home");
-        mv.addObject("deleteModel", registrationService.deleteModel);
         mv.setViewName("home");
-        return mv;
-    }    
-    
-    @PostMapping("/delete")
-    public ModelAndView delete(@Valid DeletePostModel deleteModel, BindingResult bindingResult, Model model)
-    {        
-    	System.out.print("Inside RegistrationController deletePost(" + deleteModel.getId() + ") ");
-    	
-    	ModelAndView mv = new ModelAndView(); 		
-    	mv.addObject("title", "Home");
-    	mv.addObject("pageName", "Home");
-		mv.addObject("posts", registrationService.DeletePostById(deleteModel.getId()));
-		mv.addObject("deleteModel", deleteModel);
-        mv.setViewName("home");        
         return mv;
     }
 }

@@ -40,10 +40,11 @@ public class RegistrationModel
     }
         
     
-    // GETTERS/SETTERS
-    
     public RegistrationModel() {
     }
+    
+    
+    // GETTERS/SETTERS
 
     // FirstName
     public String getFirstName() { return FirstName; }

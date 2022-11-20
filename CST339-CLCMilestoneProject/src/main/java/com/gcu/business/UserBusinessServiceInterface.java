@@ -1,14 +1,13 @@
 package com.gcu.business;
 
-import com.gcu.model.UserModel;
+import java.util.List;
+import com.gcu.data.entity.UserEntity;
 
 public interface UserBusinessServiceInterface
 {
-	public UserModel getUserByUsername(String username);
-	
-	public void addUser(UserModel userModel);
-	
-	public void updateUser(UserModel userModel);
-	
-	public void deleteUser(UserModel userModel);
+	public List<UserEntity> getAllUsers();
+	public UserEntity getUserByUsername(String username);
+	public boolean addUser(UserEntity userEntity);
+	public boolean updateUser(UserEntity userEntity);
+	public boolean deleteUser(UserEntity userEntity);
 }

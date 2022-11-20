@@ -17,21 +17,19 @@
 			padding:8px 15px;
 		}
 		#PostBox {
-			display:flex;
 			justify-content:center;
-			flex-wrap:column;
+			width:500px;
 		}
 	</style>
 </head>
 <body>
-    <div layout:fragment="content" style="padding-top:1%;">	    	
+    <div layout:fragment="content" style="padding-top:1%;">
    	 	<div id="PostBox">
-			<form action="#" th:action="@{post}" th:object="${postModel}" method="post">
-				<div><textarea type="text" th:field="*{Caption}" id="Caption" required></textarea></div>
-				<div><button type="submit" id="SubmitBtn">Submit Post</button></div>
+			<form th:action="@{updatePost}" th:objects="${postEntity}" method="post">
+				<div><textarea type="text" text="*{postEntity.caption}" class="form-control" name="caption" id="caption" placeholder="Enter text..." required></textarea></div>
+				<div style="padding: 10px;"><button type="submit" class="btn btn-primary" id="SubmitBtn">Submit Post</button></div>
 			</form>
 		</div>
-		<br>
     </div>    
 </body>
 </html>
