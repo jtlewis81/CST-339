@@ -1,0 +1,5 @@
+CREATE DATABASE cst339_milestone;
+
+CREATE TABLE `cst339_milestone`.`users` ( `ID` INT(11) NOT NULL AUTO_INCREMENT ,  `FirstName` VARCHAR(32) NOT NULL ,  `LastName` VARCHAR(32) NOT NULL ,  `Phone` VARCHAR(11) NOT NULL ,  `Email` VARCHAR(100) NOT NULL ,  `Username` VARCHAR(32) NOT NULL ,  `Password` VARCHAR(64) NOT NULL ,  `ProfilePicture` VARCHAR(200) NULL ,  `Privacy` TINYINT NOT NULL DEFAULT '0' ,    PRIMARY KEY  (`ID`)) ENGINE = InnoDB;
+
+CREATE TABLE `cst339_milestone`.`posts` ( `ID` INT(11) NOT NULL AUTO_INCREMENT ,  `Title` VARCHAR(100) NOT NULL ,  `Image` VARCHAR(200) NOT NULL ,  `Caption` TEXT NOT NULL ,  `Timestamp` VARCHAR(50) NOT NULL ,  `User_ID` INT(11) NOT NULL ,  `Username` VARCHAR(32) NOT NULL ,    PRIMARY KEY  (`ID`)) ENGINE = InnoDB;

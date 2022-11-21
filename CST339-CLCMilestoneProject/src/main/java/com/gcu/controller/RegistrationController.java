@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import com.gcu.business.PostBusinessService;
 import com.gcu.business.UserBusinessService;
 import com.gcu.data.entity.UserEntity;
 
@@ -19,8 +18,6 @@ public class RegistrationController
 {
 	 @Autowired
 	 private UserBusinessService userService;
-	 @Autowired
-	 private PostBusinessService postService;
     
 	/**
 	 * Display Registration page
@@ -75,11 +72,10 @@ public class RegistrationController
         	System.out.println("New user successfully added to Users table!"); 
         	System.out.println("ID = " + newUser.getId() + ", Username = " + newUser.getUsername());
         }
-        mv.addObject("user", newUser);
-        mv.addObject("posts", postService.getAllPostsByUser(newUser));
-        mv.addObject("title", "Home");
-        mv.addObject("pageName", "Home");
-        mv.setViewName("home");
+        
+        mv.addObject("title", "Login");
+        mv.addObject("pageName", "Login");
+        mv.setViewName("redirect:/");
         return mv;
     }
 }
