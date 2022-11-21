@@ -1,5 +1,7 @@
 package com.gcu.data;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -106,7 +108,12 @@ public class PostDataAccessService implements PostDataAccessInterface
 	 * @return
 	 */
 	@Override
-	public boolean add(PostEntity postEntity) {
+	public boolean add(PostEntity postEntity)
+	{
+		LocalDateTime timestamp = LocalDateTime.now();   
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a, M-dd-yyyy");
+        postEntity.setTimestamp(timestamp.format(formatter));
+        
 		String sql = "INSERT INTO posts (ID, Title, Image, Caption, Timestamp, User_ID, Username) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try
 		{
@@ -137,12 +144,29 @@ public class PostDataAccessService implements PostDataAccessInterface
 	@Override
 	public boolean update(PostEntity postEntity)
 	{
-		// String sql = "UPDATE * FROM posts WHERE USER_ID = " + postModel.getUserId();
+		System.out.println("POST UPDATE METHOD CALLED! post id = " + postEntity.getId());
 		
-		// THIS NEED IMPLEMENTED AND THE SQL COMMAND NEEDS CHECKED FOR ACCURACY
+		LocalDateTime timestamp = LocalDateTime.now();   
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a, M-dd-yyyy");
+        postEntity.setTimestamp(timestamp.format(formatter)); 
+		String sql = "UPDATE posts SET Caption = '" + postEntity.getCaption() +
+						"', Timestamp = '" + postEntity.getTimestamp() +
+						"' WHERE ID = '" + postEntity.getId() + "'";
 		
-		System.out.println("POST UPDATE METHOD CALLED!");
-		
+		try
+		{
+			int rows = jdbcTemplateObject.update(sql);
+			if (rows == 1)
+			{
+				System.out.println("POST UPDATE SUCCESS");
+				return true;
+			}
+		}
+		catch (Exception e)
+		{
+			System.out.println("POST UPDATE FAILURE");
+			e.printStackTrace();
+		}
 		return false;
 	}
 	
@@ -154,10 +178,7 @@ public class PostDataAccessService implements PostDataAccessInterface
 	@Override
 	public boolean delete(int postId)
 	{
-		System.out.println("Called delete method in PostDataAccessService with post id " + postId);
-		
 		String sql = "DELETE FROM posts WHERE ID = '" + postId + "'";
-		
 		try
 		{
 			int rows = jdbcTemplateObject.update(sql);
@@ -173,8 +194,6 @@ public class PostDataAccessService implements PostDataAccessInterface
 			System.out.println("POST DELETE FAILURE");
 			e.printStackTrace();
 		}
-		
 		return false;
 	}
-
 }

@@ -1,8 +1,6 @@
 package com.gcu.controller;
 
 import java.security.Principal;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.gcu.business.PostBusinessServiceInterface;
 import com.gcu.business.UserBusinessServiceInterface;
 import com.gcu.data.entity.PostEntity;
@@ -44,32 +41,10 @@ public class PostsController
         return "newPost";
     }
     
-    @GetMapping("/editPost")
-    public String editPage(@RequestParam String postId, Model model, Principal principal)
-    {
-    	int id = Integer.valueOf(postId);
-    	PostEntity post = postService.getPostById(id);
-    	UserEntity user = userService.getUserByUsername(principal.getName());
-		model.addAttribute("title", "Update Post");     
-		model.addAttribute("pageName", "Edit Post");
-		model.addAttribute("caption", post.getCaption());
-		model.addAttribute("userEntity", user);
-		model.addAttribute("postEntity", ""); 
-		
-		return "editPost";
-    }
-    
     @PostMapping("/addPost")
     public String addPost(@Valid PostEntity postEntity, Principal principal, BindingResult bindingResult, Model model) 
-    {        
-    	LocalDateTime timestamp = LocalDateTime.now();   
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a, M-dd-yyyy");
+    {
     	UserEntity user = userService.getUserByUsername(principal.getName());
-       
-    	// Set PostEntity properties. 
-    	postEntity.setTitle("n/a"); 
-    	postEntity.setImage("n/a");
-        postEntity.setTimestamp(timestamp.format(formatter)); 
         postEntity.setUserId(user.getId());
         postEntity.setUsername(user.getUsername());
         
@@ -85,45 +60,68 @@ public class PostsController
         
         return "redirect:/home";
     }
+
+    @GetMapping("/editPost")
+    public String editPage(@RequestParam String postId, PostEntity postEntity, Model model, Principal principal)
+    {
+    	System.out.println("trying to edit post with id " + postId);
+    	
+    	int id = Integer.valueOf(postId);
+    	postEntity = postService.getPostById(id);
+    	UserEntity user = userService.getUserByUsername(principal.getName());
+		model.addAttribute("title", "Update Post");     
+		model.addAttribute("pageName", "Edit Post");
+		model.addAttribute("postId", postId);
+		model.addAttribute("updatePostEntity", postEntity);
+		model.addAttribute("deletePostEntity", postEntity);
+		model.addAttribute("caption", postEntity.getCaption());
+		model.addAttribute("userEntity", user);
+		
+		return "editPost";
+    }
     
     @PostMapping("/updatePost")
-    public String updatePost(@Valid PostEntity postEntity, Principal principal, BindingResult bindingResult, Model model)
+    public String updatePost(@Valid PostEntity postEntity, String postId, String caption, BindingResult bindingResult, Model model, Principal principal)
     {
-    	System.out.println("trying to update or delete post with id " + postEntity.getId());
-    	UserEntity user = userService.getUserByUsername(principal.getName());
-    	try
+    	System.out.println("trying to update post with id " + postId);
+    	postEntity = postService.getPostById(Integer.valueOf(postId));
+    	postEntity.setCaption(caption);
+    	if (postService.updatePost(postEntity))
     	{
-    		postService.updatePost(postEntity);
+    		System.out.println("Post was successfully updated!");
     	}
-    	catch (Exception e)
-    	{
-    		e.printStackTrace();
-    	}
+		else
+		{
+			System.out.println("An error occurred updating Post.");
+		}
+        
+    	// return to home
     	model.addAttribute("title", "Home");
     	model.addAttribute("pageName", "Home");
-    	model.addAttribute("username", user.getUsername());
-    	model.addAttribute("posts", postService.getAllPostsByUser(user));
+    	model.addAttribute("username", principal.getName());
+    	model.addAttribute("posts", postService.getAllPostsByUser(userService.getUserByUsername(principal.getName())));
     	
     	 return "redirect:/home";
     }
     
     @PostMapping("/deletePost")
-    public String deletePost(@Valid PostEntity post, Principal principal, BindingResult bindingResult, Model model) throws Exception
+    public String deletePost(@Valid PostEntity postEntity, String postId, Principal principal, BindingResult bindingResult, Model model)
     {
-    	System.out.println("trying to delete post with id " + post.getId());
-    	UserEntity user = userService.getUserByUsername(principal.getName());
-    	try
+    	System.out.println("trying to delete post with id " + postId);
+    	if (postService.deletePost(Integer.valueOf(postId)))
     	{
-    		postService.deletePost(post.getId());
+    		System.out.println("Post was successfully deleted!");
     	}
-    	catch (Exception e)
-    	{
-    		e.printStackTrace();
-    	}
+		else
+		{
+			System.out.println("An error occurred deleting Post.");
+		}
+    	
+    	// return to home
     	model.addAttribute("title", "Home");
     	model.addAttribute("pageName", "Home");
-    	model.addAttribute("username", user.getUsername());
-    	model.addAttribute("posts", postService.getAllPostsByUser(user));
+    	model.addAttribute("username", principal.getName());
+    	model.addAttribute("posts", postService.getAllPostsByUser(userService.getUserByUsername(principal.getName())));
     	
         return "redirect:/home";
     }

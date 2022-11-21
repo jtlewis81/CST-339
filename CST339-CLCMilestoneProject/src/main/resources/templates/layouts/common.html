@@ -61,11 +61,12 @@
 					<!--Image thumbnail of user's profile picture to take them to their own profile-->
 					<div class="col">
 						<div class="navbar-collapse col">
-							<ul class="navbar-nav ms-auto">
-								<a th:href="@{/own-account/}"><img class="img-thumbnail img-fluid" alt="Your Profile"
-										th:src="@{/images/Avatar.jpg}" /></a>
+							<ul class="navbar-nav ms-auto flex-direction-col">
+							<div style="flex-direction:column">
+									<a th:href="@{/own-account/}"><img class="img-thumbnail img-fluid" alt="Your Profile" th:src="@{/images/Avatar.jpg}" /></a>
+									<p th:text="${username}">Default Text</p>
+								</div>
 							</ul>
-							<span th:text="${username}">Default Text</span>
 						</div>
 					</div>
 				</div>

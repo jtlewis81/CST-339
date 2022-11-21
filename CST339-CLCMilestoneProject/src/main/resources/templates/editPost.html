@@ -24,12 +24,30 @@
 </head>
 <body>
     <div layout:fragment="content" style="padding-top:1%;">
+   	 	<!-- Update Option -->
    	 	<div id="PostBox">
-			<form th:action="@{updatePost}" th:objects="${postEntity}" method="post">
-				<div><textarea type="text" text="*{postEntity.caption}" class="form-control" name="caption" id="caption" placeholder="Enter text..." required></textarea></div>
-				<div style="padding: 10px;"><button type="submit" class="btn btn-primary" id="SubmitBtn">Submit Post</button></div>
+			<form th:action="@{updatePost}" th:object="${postEntity}" method="post">
+				<span style="display:none;">
+					<input type="text" class="form-control" name="postId" id="postId" th:value="${postId}"/>
+				</span>
+				<div><textarea type="text" class="form-control" name="caption" id="caption" th:text="${caption}" required></textarea></div>
+				<!-- Save and Cancel Buttons -->
+				<div style="padding:10px;">
+					<button type="submit" class="btn btn-primary" id="SubmitBtn">Save Post</button>
+					<a th:href="@{/home}" class="btn btn-outline-secondary">Cancel</a></br>
+				</div>
 			</form>
 		</div>
-    </div>    
+		<!-- Delete Option -->
+		<div>
+			<form th:action="@{deletePost}" th:object="${postEntity}" method="post">
+				<span style="display:none;">
+					<input type="text" class="form-control" name="postId" id="postId" th:value="${postId}"/>
+				</span>
+				<button type="submit" class="btn btn-danger" id="SubmitBtn">Delete Post</button>
+			</form>
+	    </div>    
+	</div>
+	
 </body>
 </html>

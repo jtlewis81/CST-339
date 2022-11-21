@@ -26,8 +26,13 @@
     <div layout:fragment="content" style="padding-top:1%;">
    	 	<div id="PostBox">
 			<form th:action="@{addPost}" th:objects="${postEntity}" method="post">
-				<div><textarea type="text" class="form-control" name="caption" id="caption" placeholder="Enter text..." required></textarea></div>
-				<div style="padding: 10px;"><button type="submit" class="btn btn-primary" id="SubmitBtn">Submit Post</button></div>
+				<div>
+					<textarea type="text" class="form-control" name="caption" id="caption" placeholder="Enter text..." required></textarea>
+				</div>
+				<div style="padding: 10px;">
+					<button type="submit" class="btn btn-primary" id="SubmitBtn">Submit Post</button>
+					<a th:href="@{/home}" class="btn btn-outline-secondary">Cancel</a></br>
+				</div>
 			</form>
 		</div>
     </div>    
