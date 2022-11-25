@@ -11,4 +11,5 @@ public interface PostBusinessServiceInterface
 	public boolean updatePost(PostEntity postEntity);
 	public boolean deletePost(int postId);
 	public PostEntity getPostById(int postId);
+	PostEntity getLastPostsByUser(UserEntity userEntity);
 }

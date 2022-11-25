@@ -18,9 +18,7 @@ public class PostBusinessService implements PostBusinessServiceInterface
 	{
 		return postService.getAllPostsByUser(userEntity);
 	}
-	
-	
-	
+		
 	@Override
 	public boolean addPost(PostEntity postEntity)
 	{
@@ -45,6 +43,13 @@ public class PostBusinessService implements PostBusinessServiceInterface
 	public PostEntity getPostById(int postId) {
 		
 		return postService.getPostById(postId);
+	}
+
+
+	@Override
+	public PostEntity getLastPostsByUser(UserEntity userEntity)
+	{
+		return postService.getLastPostsByUser(userEntity);
 	}
 
 }

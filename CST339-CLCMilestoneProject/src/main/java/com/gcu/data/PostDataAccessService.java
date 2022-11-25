@@ -196,4 +196,10 @@ public class PostDataAccessService implements PostDataAccessInterface
 		}
 		return false;
 	}
+
+	@Override
+	public PostEntity getLastPostsByUser(UserEntity userEntity)
+	{
+		return getAllPostsByUser(userEntity).get(0);
+	}
 }
