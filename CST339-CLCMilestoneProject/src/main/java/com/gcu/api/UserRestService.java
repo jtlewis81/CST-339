@@ -1,5 +1,7 @@
 package com.gcu.api;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +20,7 @@ public class UserRestService
 	UserBusinessService service;
 	
 	@GetMapping(path="/user")
-	public ResponseEntity<?> getUser(@RequestParam String username)
+	public ResponseEntity<?> getUser(@RequestParam String username, Principal principal)
 	{
 		try
 		{
@@ -28,9 +30,13 @@ public class UserRestService
 			{
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
-			else
+			else if (username == principal.getName())
 			{
 				return new ResponseEntity<>(user, HttpStatus.OK);
+			}
+			else
+			{
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}
 		}
 		catch (Exception e)
