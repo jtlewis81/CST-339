@@ -1,7 +1,6 @@
 package com.gcu.api;
 
 import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +29,7 @@ public class UserRestService
 			{
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
-			else if (username == principal.getName())
+			else if (username.equals(principal.getName()))
 			{
 				return new ResponseEntity<>(user, HttpStatus.OK);
 			}

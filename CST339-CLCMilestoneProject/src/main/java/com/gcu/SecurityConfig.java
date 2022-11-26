@@ -43,6 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
 				.permitAll()
 				.defaultSuccessUrl("/home", true)
 				.and()
+			.httpBasic()
+				.and()
 			.logout()
 				.logoutUrl("/logout")
 				.invalidateHttpSession(true)
