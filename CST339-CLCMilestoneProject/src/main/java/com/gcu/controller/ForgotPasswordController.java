@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ForgotPasswordController {
 
     /**
-     * Display 
+     * Display forgot-password page 
      * 
      * @param model
      * @return

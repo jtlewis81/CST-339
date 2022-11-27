@@ -13,19 +13,36 @@ import org.springframework.stereotype.Service;
 import com.gcu.data.UserDataAccessService;
 import com.gcu.data.entity.UserEntity;
 
+/***
+ * 
+ * @author FriendZone developers
+ *
+ */
 @Service
 public class UserBusinessService implements UserBusinessServiceInterface, UserDetailsService
 {
+	// VARIABLES 
 	@Autowired
 	private UserDataAccessService userService;
 	
+	/***
+	 * 
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// load a user object 
 		UserEntity user = userService.getUserByUsername(username);
+		
+		// if username exists 
 		if(user != null)
 		{
+			// instantiate a list of granted authority values
 			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+			
+			// add values to authorities list 
 			authorities.add(new SimpleGrantedAuthority("USER"));
+			
+			// return a new user object 
 			return new User(user.getUsername(), user.getPassword(), authorities);
 		}
 		else
@@ -34,34 +51,45 @@ public class UserBusinessService implements UserBusinessServiceInterface, UserDe
 		}
 	}
 
-
+	/***
+	 * Get all user records from database. 
+	 */
 	@Override
 	public List<UserEntity> getAllUsers()
 	{
 		return userService.getAllUsers();
 	}
 
+	/***
+	 * Get a user object by a requested username. 
+	 */
 	@Override
 	public UserEntity getUserByUsername(String username)
 	{
 		return userService.getUserByUsername(username);
 	}
 
-
+	/***
+	 * Add a user to the database. 
+	 */
 	@Override
 	public boolean addUser(UserEntity userEntity)
 	{
 		return userService.add(userEntity);
 	}
 
-
+	/***
+	 * Update a user record in the databse. 
+	 */
 	@Override
 	public boolean updateUser(UserEntity userEntity)
 	{
 		return userService.update(userEntity);
 	}
 
-
+	/***
+	 * Delete a user record from the database. 
+	 */
 	@Override
 	public boolean deleteUser(UserEntity userEntity)
 	{
