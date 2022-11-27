@@ -28,6 +28,7 @@ public class RegistrationController
     @GetMapping("/")
     public String displayRegistration(Model model) 
     {
+    	// return page default values 
         model.addAttribute("title", "Registration");       
         model.addAttribute("pageName", "Create Account");
         model.addAttribute("userEntity", new UserEntity());
@@ -52,11 +53,14 @@ public class RegistrationController
         	existingUserError = true;
         }
         
+        // if registration submitted fields or 'username alrelady exists' error occurs
         if (bindingResult.hasErrors() || existingUserError) 
         {
+        	// notify user username already exists 
         	if (existingUserError)
         		mv.addObject("existingUserError", "Username already exists!"); 
         	
+        	// return default values to page 
             mv.addObject("title", "Registration");
             mv.addObject("pageName", "Registration");
             mv.setViewName("registration");   
@@ -64,8 +68,8 @@ public class RegistrationController
         }
 
         // Add new User to list of valid login credentials. 
-        boolean insertionResult = userService.addUser(userEntity);
         UserEntity newUser = null;
+        boolean insertionResult = userService.addUser(userEntity);
         if (insertionResult)
         {
             newUser = userService.getUserByUsername(userEntity.getUsername());

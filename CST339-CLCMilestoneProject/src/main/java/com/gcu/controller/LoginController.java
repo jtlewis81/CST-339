@@ -14,6 +14,7 @@ import com.gcu.model.RegistrationModel;
 @Controller
 public class LoginController 
 {	
+	// VARIABLES
 	 @Autowired
 	 private UserBusinessService userService;
 	 @Autowired

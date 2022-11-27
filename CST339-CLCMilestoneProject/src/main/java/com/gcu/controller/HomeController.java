@@ -14,11 +14,13 @@ import com.gcu.business.UserBusinessService;
 @RequestMapping("/home")
 public class HomeController 
 {
+	// VARIABLES 
     @Autowired
     private UserBusinessService userService;     
     @Autowired
     private PostBusinessService postService;
     
+    // display home page 
     @GetMapping("/")
     public String display(Model model, Principal principal) 
     {    	
