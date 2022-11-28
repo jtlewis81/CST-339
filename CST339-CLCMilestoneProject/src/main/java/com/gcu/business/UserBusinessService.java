@@ -14,7 +14,7 @@ import com.gcu.data.UserDataAccessService;
 import com.gcu.data.entity.UserEntity;
 
 /***
- * 
+ * Use this class to access Users table methods. 
  * @author FriendZone developers
  *
  */
@@ -26,7 +26,7 @@ public class UserBusinessService implements UserBusinessServiceInterface, UserDe
 	private UserDataAccessService userService;
 	
 	/***
-	 * 
+	 * Retrieve an object that contains info on a user from users table.  
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -95,6 +95,5 @@ public class UserBusinessService implements UserBusinessServiceInterface, UserDe
 	{
 		return userService.delete(userEntity);
 	}
-
 
 }
