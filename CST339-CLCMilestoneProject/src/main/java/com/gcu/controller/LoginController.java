@@ -12,27 +12,25 @@ import com.gcu.business.UserBusinessService;
 import com.gcu.model.RegistrationModel;
 
 @Controller
-public class LoginController 
-{	
-	// VARIABLES
+public class LoginController {	
 	 @Autowired
 	 private UserBusinessService userService;
 	 @Autowired
 	 private PostBusinessService postService;
 	
-    /**
-     * Display Login page
-     * 
-     * @param model
-     * @return
-     */
+	/**
+	* Display Login page
+	* 
+	* @param model
+	* @return
+	*/
 	@GetMapping("/")
-	public String displayLogin(Model model)
+	public String displayLogin(Model model)	
 	{
 		model.addAttribute("title", "Login Form");
-        return "login";
+		return "login";
 	}
-    
+
 	/**
 	 * takes the user to the registration form
 	 * 
@@ -46,19 +44,21 @@ public class LoginController
 	    model.addAttribute("registrationModel", new RegistrationModel());
 	    return "registration";
 	}  
-    
+
+	/**
+	* return the home view
+	*/
 	@GetMapping("/home")
 	public ModelAndView home(Principal principal)
 	{		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("userEntity", userService.getUserByUsername(principal.getName()));
-        mv.addObject("username", principal.getName());
-        
+		mv.addObject("username", principal.getName());        
 		mv.addObject("posts", postService.getAllPostsByUser(userService.getUserByUsername(principal.getName())));
-        mv.addObject("title", "Home");
-        mv.addObject("pageName", "Home");
-        mv.setViewName("home");
-        return mv;
+		mv.addObject("title", "Home");
+		mv.addObject("pageName", "Home");
+		mv.setViewName("home");
+		return mv;
 	}
 	
 }
