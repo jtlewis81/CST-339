@@ -85,20 +85,20 @@ public class PostsController {
     @GetMapping("/editPost")
     public String editPage(@RequestParam String postId, PostEntity postEntity, Model model, Principal principal)
     {
-	System.out.println("trying to edit post with id " + postId);
-	int id = Integer.valueOf(postId);
-	postEntity = postService.getPostById(id);
-	UserEntity user = userService.getUserByUsername(principal.getName());
-
-	// return auto-filled fields for selected post
-	model.addAttribute("title", "Update Post");     
-	model.addAttribute("pageName", "Edit Post");
-	model.addAttribute("postId", postId);
-	model.addAttribute("updatePostEntity", postEntity);
-	model.addAttribute("deletePostEntity", postEntity);
-	model.addAttribute("caption", postEntity.getCaption());
-	model.addAttribute("userEntity", user);
-	return "editPost";
+		System.out.println("trying to edit post with id " + postId);
+		int id = Integer.valueOf(postId);
+		postEntity = postService.getPostById(id);
+		UserEntity user = userService.getUserByUsername(principal.getName());
+	
+		// return auto-filled fields for selected post
+		model.addAttribute("title", "Update Post");     
+		model.addAttribute("pageName", "Edit Post");
+		model.addAttribute("postId", postId);
+		model.addAttribute("updatePostEntity", postEntity);
+		model.addAttribute("deletePostEntity", postEntity);
+		model.addAttribute("caption", postEntity.getCaption());
+		model.addAttribute("userEntity", user);
+		return "editPost";
     }
     
     /***
@@ -116,16 +116,19 @@ public class PostsController {
     	// update the caption
     	postEntity.setCaption(caption);
     	
-    	// attempt to update the post 
-    	if (postService.updatePost(postEntity))
+    	if(!bindingResult.hasErrors())
     	{
-    		System.out.println("Post was successfully updated!");
+    		// attempt to update the post 
+        	if (postService.updatePost(postEntity))
+        	{
+        		System.out.println("Post was successfully updated!");
+        	}
+    		else
+    		{
+    			System.out.println("An error occurred updating Post.");
+    		}
     	}
-	else
-	{
-		System.out.println("An error occurred updating Post.");
-	}
-        
+
     	// return to home
     	model.addAttribute("title", "Home");
     	model.addAttribute("pageName", "Home");

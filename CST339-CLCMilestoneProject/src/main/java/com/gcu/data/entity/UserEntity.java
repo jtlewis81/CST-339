@@ -25,6 +25,8 @@ public class UserEntity
 	private String password;    
     @Column("ProfilePicture")
 	private String profilePic;
+    @Column("Friends")
+    private String friends;
     
 
     // CONSTRUCTORS    
@@ -35,22 +37,23 @@ public class UserEntity
      * @param id
      * @param firstName
      * @param lastName
-     * @param email
      * @param phone
+     * @param email
      * @param username
      * @param password
      * @param profilePic
      */
-    public UserEntity(int id, String firstName, String lastName, String email, String phone, String username, String password, String profilePic)
+    public UserEntity(int id, String firstName, String lastName, String phone, String email, String username, String password, String profilePic)
     {
     	this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.email = email;
 		this.phone = phone;
+		this.email = email;
 		this.username = username;
 		this.password = password;
 		this.profilePic = profilePic;
+		this.friends = "";
 	}
     
     /**
@@ -96,4 +99,7 @@ public class UserEntity
     
 	public String getProfilePic() { return profilePic; }
 	public void setProfilePic(String profilePic) { this.profilePic = profilePic; }
+
+	public String getFriendIDs(){ return friends;	}
+	public void setFriendIDs(String friendIDs) { this.friends = friendIDs; }
 }

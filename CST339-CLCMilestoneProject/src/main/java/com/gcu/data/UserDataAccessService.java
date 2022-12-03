@@ -161,4 +161,72 @@ public class UserDataAccessService implements UserDataAccessInterface
 		
 		return false;
 	}
+
+
+	@Override
+	public List<UserEntity> getAllFriends(String selfUsername)
+	{
+		String sql = "SELECT * FROM users WHERE Username = '" + selfUsername + "'";
+		
+		List<UserEntity> friendList = new ArrayList<UserEntity>();
+		
+		try
+		{
+			String friends = "";
+			SqlRowSet record = jdbcTemplateObject.queryForRowSet(sql);
+			
+			while (record.next())
+			{
+				friends = record.getString("Friends");
+			}
+			
+			if(friends != "")
+			{
+				String[] parsedList = friends.split(",");
+				System.out.println(parsedList[0].toString());
+				
+				for(int i = 0; i < parsedList.length; i++)
+				{
+					friendList.add(getUserByUsername(parsedList[i]));
+				}
+			}
+			
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return friendList;
+	}
+
+
+	@Override
+	public boolean addFriend(String selfUsername, String friendUsername)
+	{
+		String sql = "UPDATE users SET friends = CONCAT(friends, '" + friendUsername + ",') WHERE Username = '" + selfUsername + "'";
+		try
+		{
+			int update = jdbcTemplateObject.update(sql);
+			
+			if(update == 1)
+			{
+				return true;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+
+	@Override
+	public boolean removeFriend(String selfUsername, String friendUsername)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

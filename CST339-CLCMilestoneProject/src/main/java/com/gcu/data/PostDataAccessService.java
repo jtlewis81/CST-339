@@ -65,7 +65,8 @@ public class PostDataAccessService implements PostDataAccessInterface
 						record.getString("Username")));
 			}
 		}
-		catch (Exception e){
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}		
 		// order posts to start with latest posts first 
@@ -109,33 +110,6 @@ public class PostDataAccessService implements PostDataAccessInterface
 		}		
 		// return the post object 
 		return post; 
-	}
-	
-	/***
-	 * Get a username by its record Id. 
-	 */
-	@Override
-	public String getUsernameByUserId(int userId) {
-		// create database query 
-		String sql = "SELECT * FROM users WHERE ID = '" + userId + "'";
-		
-		// container to hold retrieved username
-		String username = "";
-		try
-		{
-			// run the query 
-			SqlRowSet record = jdbcTemplateObject.queryForRowSet(sql);
-			
-			// instantiate our username container 
-			if (record.next())
-				username = record.getString("Username");
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}	
-		// return username container 
-		return username;
 	}
 	
 	/**

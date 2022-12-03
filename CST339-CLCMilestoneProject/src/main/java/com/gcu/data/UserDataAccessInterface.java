@@ -11,4 +11,7 @@ public interface UserDataAccessInterface
 	public boolean add(UserEntity userEntity);
 	public boolean update(UserEntity userEntity);
 	public boolean delete(UserEntity userEntity);
+	public List<UserEntity> getAllFriends(String selfUsername);
+	public boolean addFriend(String selfUsername, String friendUsername);
+	public boolean removeFriend(String selfUsername, String friendUsername);
 }

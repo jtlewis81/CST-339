@@ -96,4 +96,17 @@ public class UserBusinessService implements UserBusinessServiceInterface, UserDe
 		return userService.delete(userEntity);
 	}
 
+	@Override
+	public List<UserEntity> getAllFriends(String username)
+	{
+		return userService.getAllFriends(username);
+	}
+
+	@Override
+	public boolean addFriend(String selfUsername, String friendUsername)
+	{
+		// TODO Auto-generated method stub
+		return userService.addFriend(selfUsername, friendUsername);
+	}
+
 }
