@@ -72,5 +72,11 @@ public class PostBusinessService implements PostBusinessServiceInterface
 	{
 		return postService.getLastPostsByUser(userEntity);
 	}
+	
+	@Override
+	public List<PostEntity> getUserFeed(UserEntity userEntity, List<UserEntity> friends)
+	{
+		return postService.getUserFeed(userEntity, friends);
+	}
 
 }

@@ -35,11 +35,12 @@ public class PostsController {
      * @returns
      */
     @GetMapping("/")
-    public String display(UserEntity user, Model model) 
+    public String display(UserEntity user, Model model, Principal principal) 
     {
     	// return default values 
         model.addAttribute("title", "Add Post");     
         model.addAttribute("pageName", "Create Post");
+    	model.addAttribute("username", principal.getName());
         model.addAttribute("userEntity", user);
         model.addAttribute("postModel", new PostEntity());         
         return "newPost";
@@ -69,6 +70,7 @@ public class PostsController {
         // return home page
         model.addAttribute("userEntity", user);
         model.addAttribute("posts", postService.getAllPostsByUser(user));
+    	model.addAttribute("username", principal.getName());
         model.addAttribute("pageName", "Home");
         model.addAttribute("title", "Home");        
         return "redirect:/home";
@@ -98,6 +100,7 @@ public class PostsController {
 		model.addAttribute("deletePostEntity", postEntity);
 		model.addAttribute("caption", postEntity.getCaption());
 		model.addAttribute("userEntity", user);
+    	model.addAttribute("username", principal.getName());
 		return "editPost";
     }
     

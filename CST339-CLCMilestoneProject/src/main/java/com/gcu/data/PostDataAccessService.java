@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,7 +123,7 @@ public class PostDataAccessService implements PostDataAccessInterface
 	{
 		// Timestamp the post 
 		LocalDateTime timestamp = LocalDateTime.now();   
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a, M-dd-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-YYYY, hh:mm:ss a");
         postEntity.setTimestamp(timestamp.format(formatter));
         
         // create insert query 
@@ -163,7 +164,7 @@ public class PostDataAccessService implements PostDataAccessInterface
 		
 		// Timestamp our post 
 		LocalDateTime timestamp = LocalDateTime.now();   
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a, M-dd-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-YYYY, hh:mm:ss a");
         postEntity.setTimestamp(timestamp.format(formatter)); 
         
         // create update query 
@@ -227,5 +228,25 @@ public class PostDataAccessService implements PostDataAccessInterface
 	public PostEntity getLastPostsByUser(UserEntity userEntity)
 	{
 		return getAllPostsByUser(userEntity).get(0);
+	}
+
+	
+	@Override
+	public List<PostEntity> getUserFeed(UserEntity user, List<UserEntity> friends)
+	{
+		List<PostEntity> feedPosts = getAllPostsByUser(user);
+		for(int i = 0; i < friends.size(); i++)
+		{
+			feedPosts.addAll(getAllPostsByUser(friends.get(i)));
+		}
+		
+		Collections.sort(feedPosts, new Comparator<PostEntity>() {
+		    public int compare(PostEntity pe1, PostEntity pe2)
+		    {		    	
+		        return pe2.getTimestamp().compareTo(pe1.getTimestamp());
+		    }
+		});
+		
+		return feedPosts;
 	}
 }

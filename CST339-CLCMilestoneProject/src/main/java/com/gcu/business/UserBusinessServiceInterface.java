@@ -11,5 +11,6 @@ public interface UserBusinessServiceInterface
 	public boolean updateUser(UserEntity userEntity);
 	public boolean deleteUser(UserEntity userEntity);
 	public List<UserEntity> getAllFriends(String username);
-	boolean addFriend(String selfUsername, String friendUsername);
+	public boolean addFriend(String selfUsername, String friendUsername);
+	public boolean deleteFriend(String selfUsername, String friendUsername);
 }

@@ -59,7 +59,7 @@ public class ProfileController
     {
     	UserEntity user = userService.getUserByUsername(username);
     	List<PostEntity> posts = postService.getAllPostsByUser(user);
-    	List<UserEntity> friends = userService.getAllFriends(principal.getName());
+    	List<UserEntity> friends = userService.getAllFriends(username);
     	if (friends.get(0) == null)
     	{
     		friends = new ArrayList<UserEntity>();
@@ -87,5 +87,20 @@ public class ProfileController
     	}
     	
     	return "redirect:/home/find-friends";
+    }
+    
+    @GetMapping("/deleteFriend")
+    public String deleteFriend(@RequestParam String username, Model model, Principal principal)
+    {    	
+    	try
+    	{
+    		userService.deleteFriend(principal.getName(), username);
+    	}
+    	catch (Exception e)
+    	{
+    		e.printStackTrace();
+    	}
+    	
+    	return "redirect:/profile/self";
     }
 }

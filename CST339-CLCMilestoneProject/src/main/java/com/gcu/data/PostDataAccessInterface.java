@@ -11,5 +11,6 @@ public interface PostDataAccessInterface
 	public boolean add(PostEntity postEntity);
 	public boolean update(PostEntity postEntity);
 	public boolean delete(int postId);
-	PostEntity getLastPostsByUser(UserEntity userEntity);
+	public PostEntity getLastPostsByUser(UserEntity userEntity);
+	public List<PostEntity> getUserFeed(UserEntity userEntity, List<UserEntity> friends);
 }

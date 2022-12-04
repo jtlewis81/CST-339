@@ -1,7 +1,7 @@
 package com.gcu.controller;
 
 import java.security.Principal;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.gcu.business.PostBusinessService;
 import com.gcu.business.UserBusinessService;
+import com.gcu.data.entity.PostEntity;
+import com.gcu.data.entity.UserEntity;
 import com.gcu.model.RegistrationModel;
 
 @Controller
@@ -49,12 +51,25 @@ public class LoginController {
 	* return the home view
 	*/
 	@GetMapping("/home")
-	public ModelAndView home(Principal principal)
+	public ModelAndView home(Model model, Principal principal)
 	{		
+		UserEntity user = userService.getUserByUsername(principal.getName());
+    	List<UserEntity> friends = userService.getAllFriends(principal.getName());
+    	List<PostEntity> posts;
+    	if (friends.get(0 ) == null)
+    	{
+    		posts = postService.getAllPostsByUser(user);
+    	}
+    	else
+    	{
+    		posts = postService.getUserFeed(user, userService.getAllFriends(user.getUsername()));
+    	}
+    	
+		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("userEntity", userService.getUserByUsername(principal.getName()));
 		mv.addObject("username", principal.getName());        
-		mv.addObject("posts", postService.getAllPostsByUser(userService.getUserByUsername(principal.getName())));
+		mv.addObject("posts", posts);
 		mv.addObject("title", "Home");
 		mv.addObject("pageName", "Home");
 		mv.setViewName("home");

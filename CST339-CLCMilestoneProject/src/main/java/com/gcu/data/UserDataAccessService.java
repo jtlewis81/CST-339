@@ -167,9 +167,7 @@ public class UserDataAccessService implements UserDataAccessInterface
 	public List<UserEntity> getAllFriends(String selfUsername)
 	{
 		String sql = "SELECT * FROM users WHERE Username = '" + selfUsername + "'";
-		
 		List<UserEntity> friendList = new ArrayList<UserEntity>();
-		
 		try
 		{
 			String friends = "";
@@ -178,13 +176,18 @@ public class UserDataAccessService implements UserDataAccessInterface
 			while (record.next())
 			{
 				friends = record.getString("Friends");
-				System.out.println(friends);
 			}
-			
-			String[] parsedList = friends.split(",");
-			for(int i = 0; i < parsedList.length; i++)
+			if (friends != null)
 			{
-				friendList.add(getUserByUsername(parsedList[i]));
+				String[] parsedList = friends.split(",");
+				for(int i = 0; i < parsedList.length; i++)
+				{
+					friendList.add(getUserByUsername(parsedList[i]));
+				}
+			}
+			else
+			{
+				return null;
 			}
 			
 		}
@@ -192,7 +195,6 @@ public class UserDataAccessService implements UserDataAccessInterface
 		{
 			e.printStackTrace();
 		}
-		
 		return friendList;
 	}
 
@@ -201,13 +203,73 @@ public class UserDataAccessService implements UserDataAccessInterface
 	public boolean addFriend(String selfUsername, String friendUsername)
 	{
 		String sql = "UPDATE users SET friends = CONCAT(friends, '" + friendUsername + ",') WHERE Username = '" + selfUsername + "'";
+		String sql2 = "UPDATE users SET friends = CONCAT(friends, '" + selfUsername + ",') WHERE Username = '" + friendUsername + "'";
 		try
 		{
 			int update = jdbcTemplateObject.update(sql);
-			
-			if(update == 1)
+			int update2 = jdbcTemplateObject.update(sql2);
+			if(update == 1 && update2 == 1)
 			{
-				System.out.println("Added " + friendUsername + " to " + selfUsername + "'s friends!");
+				return true;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+
+	@Override
+	public boolean deleteFriend(String selfUsername, String friendUsername)
+	{
+		String sql = "SELECT * FROM users WHERE Username = '" + selfUsername + "'";
+		String sql2 = "SELECT * FROM users WHERE Username = '" + friendUsername + "'";
+		String updatedFriends = "";
+		String updatedFriends2 = "";
+		
+		try
+		{
+			// remove friend from self
+			SqlRowSet record = jdbcTemplateObject.queryForRowSet(sql);
+			String friends = "";
+			while (record.next())
+			{
+				friends = record.getString("Friends");
+			}
+			String[] parsedList = friends.split(",");
+			for(int i = 0; i < parsedList.length; i++)
+			{
+				if (!(parsedList[i].compareTo(friendUsername) == 0))
+				{
+					updatedFriends += parsedList[i] + ",";
+				}
+			}
+			String sql3 = "UPDATE users SET friends = '" + updatedFriends + "' WHERE Username = '" + selfUsername + "'";
+			int update = jdbcTemplateObject.update(sql3);
+
+			// remove self from removed friend
+			SqlRowSet record2 = jdbcTemplateObject.queryForRowSet(sql2);
+			String friends2 = "";
+			while (record2.next())
+			{
+				friends2 = record2.getString("Friends");
+			}
+			parsedList = friends2.split(",");
+			for(int i = 0; i < parsedList.length; i++)
+			{
+				if (!(parsedList[i].compareTo(selfUsername) == 0))
+				{
+					updatedFriends2 += parsedList[i] + ",";
+				}
+			}
+			String sql4 = "UPDATE users SET friends = '" + updatedFriends2 + "' WHERE Username = '" + friendUsername + "'";
+			int update2 = jdbcTemplateObject.update(sql4);
+			
+			// do checks and return
+			if(update == 1 && update2 == 1)
+			{
 				return true;
 			}
 		}
@@ -216,15 +278,6 @@ public class UserDataAccessService implements UserDataAccessInterface
 			e.printStackTrace();
 		}
 		
-		System.out.println("ADD FRIEND FAILED");
-		return false;
-	}
-
-
-	@Override
-	public boolean removeFriend(String selfUsername, String friendUsername)
-	{
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

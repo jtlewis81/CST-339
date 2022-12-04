@@ -105,8 +105,13 @@ public class UserBusinessService implements UserBusinessServiceInterface, UserDe
 	@Override
 	public boolean addFriend(String selfUsername, String friendUsername)
 	{
-		// TODO Auto-generated method stub
 		return userService.addFriend(selfUsername, friendUsername);
+	}
+
+	@Override
+	public boolean deleteFriend(String selfUsername, String friendUsername)
+	{
+		return userService.deleteFriend(selfUsername, friendUsername);		
 	}
 
 }

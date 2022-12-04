@@ -1,7 +1,6 @@
 package com.gcu.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.gcu.business.PostBusinessService;
 import com.gcu.business.UserBusinessService;
+import com.gcu.data.entity.PostEntity;
 import com.gcu.data.entity.UserEntity;
 
 @Controller
@@ -25,11 +25,25 @@ public class HomeController
     // display home page 
     @GetMapping("/")
     public String display(Model model, Principal principal) 
-    {    	
+    {   
+    	UserEntity user = userService.getUserByUsername(principal.getName());
+    	List<UserEntity> friends = userService.getAllFriends(principal.getName());
+    	List<PostEntity> posts;
+    	if (friends == null)
+    	{
+    		posts = postService.getAllPostsByUser(user);
+    	}
+    	else
+    	{
+    		posts = postService.getUserFeed(user, userService.getAllFriends(user.getUsername()));
+    	}
+    	
         model.addAttribute("title", "Home");
         model.addAttribute("pageName", "Home");
-        model.addAttribute("user", userService.getUserByUsername(principal.getName()));
-        model.addAttribute("posts", postService.getAllPostsByUser(userService.getUserByUsername(principal.getName())));
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("user", user);
+        model.addAttribute("posts", posts);
+        model.addAttribute("userEntity", user);
         
         return "home";
     }
@@ -41,7 +55,7 @@ public class HomeController
     	List<UserEntity> users = userService.getAllUsers();
     	List<UserEntity> friends = userService.getAllFriends(principal.getName());
     	
-    	// need a better way to remove the current user and their friends from the list of users
+    	// REALLY need a better way to remove the current user and their friends from the list of users! This will not scale well!
     	for(int i = 0; i < users.size(); i++)
     	{
     		// remove self
@@ -51,32 +65,31 @@ public class HomeController
     		}
     		
     	}
-    	
+    	// check if friends is null and apply fix for null pointer if it is
     	if (friends.get(0) == null)
     	{
-    		friends = new ArrayList<UserEntity>();
+    		friends = null;
     	}
     	else
-    	{
+    	{    		
     		// remove friends
-			for(int i = 0; i < users.size(); i++)
+    		for(int i = 0; i < friends.size(); i++)
 	    	{
-	    		for(int j = 0; j < friends.size(); j++)
+	    		for(int j = 0; j < users.size(); j++)
 	    		{
-	    			if(users.get(i).getUsername().compareTo(friends.get(j).getUsername()) == 0)
+	    			if(users.get(j).getUsername().compareTo(friends.get(i).getUsername()) == 0)
 	    			{
-	    				users.remove(users.get(i));
+	    				users.remove(users.get(j));
 	    			}
 	    		}
 	    	}
     	}
     	
-    	
     	// possibly add sort method for alphabetical listing?
     	
     	model.addAttribute("title", "Find Friends");
     	model.addAttribute("pageName", "Find Friends");
-    	model.addAttribute("username", principal.getName());    	
+    	model.addAttribute("username", principal.getName());	
     	model.addAttribute("users", users);
     	
     	return "find-friends";

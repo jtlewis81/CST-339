@@ -33,7 +33,7 @@
 							<ul class="navbar-nav">
 								<!--Navigates to Home-->
 								<li class="nav-item">
-									<a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+									<a class="nav-link active" aria-current="page" th:href="@{/home/}">Home</a>
 								</li>
 								<!--Navigates to your own profile-->
 								<li class="nav-item">
@@ -70,7 +70,7 @@
 						<div class="navbar-collapse col">
 							<ul class="navbar-nav ms-auto flex-direction-col">
 								<div style="flex-direction:column">
-									<a th:href="@{/profile/}"><img class="img-thumbnail img-fluid" style="margin-top:25px;" alt="Your Profile" th:src="@{/images/Avatar.jpg}" /></a>
+									<a th:href="@{/profile/self}"><img class="img-thumbnail img-fluid" style="margin-top:25px;" alt="Your Profile" th:src="@{/images/Avatar.jpg}" /></a>
 									<p th:text="${username}">Default Text</p>
 								</div>
 							</ul>

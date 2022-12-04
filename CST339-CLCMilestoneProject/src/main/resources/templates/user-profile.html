@@ -53,15 +53,12 @@
 				<h3>Friends List</h3>
 				<br>
 				<div class="row" th:if="${friends.empty}">
-					<h5 style="text-align:center" colspan="4">No Friends Yet</h5>
+					<h5 style="text-align:center" colspan="4">No Friends Yet :(</h5>
 				</div>
 				<div class="container" th:each="friend : ${friends}" style="margin-bottom: 4%; padding: 0px 12px;">
 					<div class="row">
-						<div class="col-10" style="background-color:#0d6efd; margin-bottom: 20px; padding: 10px;">
-							<a style="font-size:2vh; color:white; text-decoration:none;" th:href="@{user/?username={friendUsername}(friendUsername=${friend.username})}" th:text="${friend.getUsername()}">Default Friend Name Text</a>
-						</div>
-						<div class="col-2" style="background-color:#0d6efd; margin-bottom: 20px; padding: 10px;">
-							<a style="color:white;" th:href="@{profile/removeFriend?friendId={friendId}(friendId=${friend.id})}"class="btn"><i class="fa-regular fa-trash-can" style="height:80%; width: auto;"></i></a>
+						<div class="col-12" style="background-color:#0d6efd; padding: 10px;">
+							<a style="font-size:2vh; color:white; text-decoration:none;" th:href="@{/profile/user/?username={friendUsername}(friendUsername=${friend.username})}" th:text="${friend.getUsername()}">Default Friend Name Text</a>
 						</div>
 					</div>
 				</div>
