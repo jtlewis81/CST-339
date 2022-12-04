@@ -1,6 +1,7 @@
 package com.gcu.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,17 +51,26 @@ public class HomeController
     		}
     		
     	}
-    	for(int i = 0; i < users.size(); i++)
+    	
+    	if (friends.get(0) == null)
+    	{
+    		friends = new ArrayList<UserEntity>();
+    	}
+    	else
     	{
     		// remove friends
-    		for(int j = 0; j < friends.size(); j++)
-    		{
-    			if(users.get(i).getUsername().compareTo(friends.get(j).getUsername()) == 0)
-    			{
-    				users.remove(users.get(i));
-    			}
-    		}
+			for(int i = 0; i < users.size(); i++)
+	    	{
+	    		for(int j = 0; j < friends.size(); j++)
+	    		{
+	    			if(users.get(i).getUsername().compareTo(friends.get(j).getUsername()) == 0)
+	    			{
+	    				users.remove(users.get(i));
+	    			}
+	    		}
+	    	}
     	}
+    	
     	
     	// possibly add sort method for alphabetical listing?
     	

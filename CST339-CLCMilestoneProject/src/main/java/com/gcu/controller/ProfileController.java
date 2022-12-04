@@ -34,7 +34,11 @@ public class ProfileController
     {
     	UserEntity user = userService.getUserByUsername(principal.getName());
     	List<PostEntity> posts = postService.getAllPostsByUser(user);
-    	List<UserEntity> friends = userService.getAllFriends(principal.getName()); // <<<<<<<< NEEDS UPDATED WITH PROPER METHOD
+    	List<UserEntity> friends = userService.getAllFriends(principal.getName());
+    	if (friends.get(0) == null)
+    	{
+    		friends = new ArrayList<UserEntity>();
+    	}
     	
     	model.addAttribute("title", "MyProfile");
     	model.addAttribute("pageName", "My Profile");
@@ -55,8 +59,11 @@ public class ProfileController
     {
     	UserEntity user = userService.getUserByUsername(username);
     	List<PostEntity> posts = postService.getAllPostsByUser(user);
-    	List<UserEntity> friends = new ArrayList<UserEntity>(); // <<<<<<<< NEEDS UPDATED WITH PROPER METHOD
-    	
+    	List<UserEntity> friends = userService.getAllFriends(principal.getName());
+    	if (friends.get(0) == null)
+    	{
+    		friends = new ArrayList<UserEntity>();
+    	}
     	model.addAttribute("title", "User Profile");
     	model.addAttribute("pageName", user.getUsername() + "'s Profile");
     	model.addAttribute("username", principal.getName());
@@ -79,7 +86,6 @@ public class ProfileController
     		e.printStackTrace();
     	}
     	
-    	return "redirect:/home";
+    	return "redirect:/home/find-friends";
     }
-    
 }

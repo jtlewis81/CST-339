@@ -178,17 +178,13 @@ public class UserDataAccessService implements UserDataAccessInterface
 			while (record.next())
 			{
 				friends = record.getString("Friends");
+				System.out.println(friends);
 			}
 			
-			if(friends != "")
+			String[] parsedList = friends.split(",");
+			for(int i = 0; i < parsedList.length; i++)
 			{
-				String[] parsedList = friends.split(",");
-				System.out.println(parsedList[0].toString());
-				
-				for(int i = 0; i < parsedList.length; i++)
-				{
-					friendList.add(getUserByUsername(parsedList[i]));
-				}
+				friendList.add(getUserByUsername(parsedList[i]));
 			}
 			
 		}
@@ -211,6 +207,7 @@ public class UserDataAccessService implements UserDataAccessInterface
 			
 			if(update == 1)
 			{
+				System.out.println("Added " + friendUsername + " to " + selfUsername + "'s friends!");
 				return true;
 			}
 		}
@@ -219,6 +216,7 @@ public class UserDataAccessService implements UserDataAccessInterface
 			e.printStackTrace();
 		}
 		
+		System.out.println("ADD FRIEND FAILED");
 		return false;
 	}
 
