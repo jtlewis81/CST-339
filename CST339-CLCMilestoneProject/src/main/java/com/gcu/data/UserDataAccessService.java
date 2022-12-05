@@ -202,8 +202,27 @@ public class UserDataAccessService implements UserDataAccessInterface
 	@Override
 	public boolean addFriend(String selfUsername, String friendUsername)
 	{
-		String sql = "UPDATE users SET friends = CONCAT(friends, '" + friendUsername + ",') WHERE Username = '" + selfUsername + "'";
-		String sql2 = "UPDATE users SET friends = CONCAT(friends, '" + selfUsername + ",') WHERE Username = '" + friendUsername + "'";
+		String sql = "";
+		String sql2 = "";
+		if(getAllFriends(selfUsername) == null)
+		{
+			sql = "UPDATE users SET friends = '" + friendUsername + ",' WHERE Username = '" + selfUsername + "'";
+		}
+		else
+		{
+			sql = "UPDATE users SET friends = CONCAT(friends, '" + friendUsername + ",') WHERE Username = '" + selfUsername + "'";
+		}
+		
+		if(getAllFriends(friendUsername) == null)
+		{
+			sql2 = "UPDATE users SET friends = '" + selfUsername + ",' WHERE Username = '" + friendUsername + "'";
+		}
+		else
+		{
+			sql2 = "UPDATE users SET friends = CONCAT(friends, '" + selfUsername + ",') WHERE Username = '" + friendUsername + "'";
+		}
+		
+		
 		try
 		{
 			int update = jdbcTemplateObject.update(sql);

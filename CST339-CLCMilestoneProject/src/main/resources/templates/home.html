@@ -91,14 +91,15 @@
 		<br>
 		
 		<div id="Posts">
-			<div style="width:100%; margin-bottom:3%;">
+			<div style="width:50%; margin-bottom:3%;">
+				
 				<div class="col container">
 					<div class="row" th:if="${posts.empty}">
 						<h4 style="text-align:center" colspan="4">No Posts Exist.</h4>
 					</div>
 					
 					<!-- Displays each post in formatted way -->
-					<div id="PostsTimeline">
+					<div id="PostsTimeline" th:if="${!posts.empty}">
 						<div th:each="post : ${posts}">
 							<section class="Post" >
 								<section class="PostDetails">
@@ -116,11 +117,9 @@
 							</section>
 						</div>
 					</div>
-					
-				</div>
-			</div>		
+				</div>	
+			</div>	
 		</div>
-		
 	</div>
 </body>
 </html>

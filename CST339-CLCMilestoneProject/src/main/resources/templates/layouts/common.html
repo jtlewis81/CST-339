@@ -33,20 +33,20 @@
 							<ul class="navbar-nav">
 								<!--Navigates to Home-->
 								<li class="nav-item">
-									<a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+									<a class="nav-link active" th:href="@{/home}">Home</a>
 								</li>
 								<!--Navigates to your own profile-->
 								<li class="nav-item">
-									<a class="nav-link" th:href="@{/profile/self}">Profile</a>
+									<a class="nav-link active" th:href="@{/profile/self}">Profile</a>
 								</li>
 								<!--Navigates to your friends list page-->
 								<li class="nav-item">
-									<a class="nav-link" th:href="@{/home/find-friends}">Find Friends</a>
+									<a class="nav-link active" th:href="@{/home/find-friends}">Find Friends</a>
 								</li>
 								<!--Navigates back to log in-->
 								<li class="nav-item">
 									<form th:action="@{/logout}" method="POST">
-										<input class="nav-link" style="border: none; background-color: transparent;" type="submit" value="Log Out"/>
+										<input class="nav-link active" style="border: none; background-color: transparent;" type="submit" value="Log Out"/>
 									</form>
 								</li>
 							</ul>

@@ -66,7 +66,7 @@ public class HomeController
     		
     	}
     	// check if friends is null and apply fix for null pointer if it is
-    	if (friends.get(0) == null)
+    	if (friends == null)
     	{
     		friends = null;
     	}
