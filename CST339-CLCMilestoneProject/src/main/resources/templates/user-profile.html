@@ -71,7 +71,7 @@
 								<section class="PostCaption">							
 									<div class="Caption bordered">
 										<span th:text="${post.getCaption()}"></span>
-										<a th:href="@{post/editPost?postId={postId}(postId=${post.id})}"class="btn">
+										<a th:href="@{/post/editPost?postId={postId}(postId=${post.id})}"class="btn">
 											<i class="fa-regular fa-pen-to-square" style="height:80%; width: auto;"></i>
 										</a>
 									</div>											

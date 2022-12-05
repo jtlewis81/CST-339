@@ -56,7 +56,7 @@ public class LoginController {
 		UserEntity user = userService.getUserByUsername(principal.getName());
     	List<UserEntity> friends = userService.getAllFriends(principal.getName());
     	List<PostEntity> posts;
-    	if (friends == null)
+    	if (friends == null || friends.get(0) == null)
     	{
     		posts = postService.getAllPostsByUser(user);
     	}

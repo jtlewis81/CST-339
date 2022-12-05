@@ -35,7 +35,7 @@ public class ProfileController
     	UserEntity user = userService.getUserByUsername(principal.getName());
     	List<PostEntity> posts = postService.getAllPostsByUser(user);
     	List<UserEntity> friends = userService.getAllFriends(principal.getName());
-    	if (friends == null)
+    	if (friends == null || friends.get(0) == null)
     	{
     		friends = new ArrayList<UserEntity>();
     	}
@@ -60,7 +60,7 @@ public class ProfileController
     	UserEntity user = userService.getUserByUsername(username);
     	List<PostEntity> posts = postService.getAllPostsByUser(user);
     	List<UserEntity> friends = userService.getAllFriends(username);
-    	if (friends == null)
+    	if (friends == null || friends.get(0) == null)
     	{
     		friends = new ArrayList<UserEntity>();
     	}

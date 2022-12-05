@@ -29,7 +29,7 @@ public class HomeController
     	UserEntity user = userService.getUserByUsername(principal.getName());
     	List<UserEntity> friends = userService.getAllFriends(principal.getName());
     	List<PostEntity> posts;
-    	if (friends == null)
+    	if (friends == null || friends.get(0) == null)
     	{
     		posts = postService.getAllPostsByUser(user);
     	}
@@ -66,7 +66,7 @@ public class HomeController
     		
     	}
     	// check if friends is null and apply fix for null pointer if it is
-    	if (friends == null)
+    	if (friends == null || friends.get(0) == null)
     	{
     		friends = null;
     	}
