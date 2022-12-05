@@ -45,7 +45,7 @@ public class LoginController {
 	    model.addAttribute("title", "New User Registration");
 	    model.addAttribute("registrationModel", new RegistrationModel());
 	    return "registration";
-	}  
+	} 
 
 	/**
 	* return the home view
@@ -56,7 +56,7 @@ public class LoginController {
 		UserEntity user = userService.getUserByUsername(principal.getName());
     	List<UserEntity> friends = userService.getAllFriends(principal.getName());
     	List<PostEntity> posts;
-    	if (friends.get(0 ) == null)
+    	if (friends == null)
     	{
     		posts = postService.getAllPostsByUser(user);
     	}

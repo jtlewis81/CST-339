@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.gcu</groupId>
-	<artifactId>milestone</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>CST339-CLCProject</artifactId>
+	<version>0.8</version>
 	<name>cst339-milestone</name>
 	<description>Milestone Project for GCU CST-339</description>
 	<properties>
