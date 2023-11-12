@@ -159,10 +159,7 @@ public class PostDataAccessService implements PostDataAccessInterface
 	 */
 	@Override
 	public boolean update(PostEntity postEntity)
-	{
-		System.out.println("POST UPDATE METHOD CALLED! post id = " + postEntity.getId());
-		
-		// Timestamp our post 
+	{ 
 		LocalDateTime timestamp = LocalDateTime.now();   
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-YYYY, hh:mm:ss a");
         postEntity.setTimestamp(timestamp.format(formatter)); 
